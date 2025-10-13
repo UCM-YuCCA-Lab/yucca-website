@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YuCCA Lab - Publications</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>YuCCA Lab</h1>
+            <p class="subtitle">Yu's Cognitive Computing and Automation Lab</p>
+            <p class="subtitle">University of California, Merced</p>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="publications.html" class="active">Publications</a></li>
+            <li><a href="students.html">Students</a></li>
+            <li><a href="join.html">Join Us</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <h2>Publications</h2>
+        <p style="margin-bottom: 2rem;">Our research has been published in leading conferences and journals in artificial intelligence, robotics, and human-computer interaction.</p>
+        
+        <div id="publications-list">
+            <p class="placeholder" style="margin-bottom: 2rem;">Loading publications from pubs.bib...</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 YuCCA Lab - University of California, Merced</p>
+        <p style="margin-top: 0.5rem; font-size: 0.9rem;">Yu's Cognitive Computing and Automation Lab</p>
+    </footer>
+
+    <script>
+        // Clean LaTeX commands and convert to HTML
+        function cleanLatex(text) {
+            if (!text) return '';
+            
+            // Convert \textbf{...} to <strong>...</strong> - simple non-nested version
+            text = text.replace(/\\textbf\{([^}]+)\}/g, '<strong>$1</strong>');
+            
+            // Convert \textsuperscript{...} to <sup>...</sup>
+            text = text.replace(/\\textsuperscript\{([^}]+)\}/g, '<sup>$1</sup>');
+            
+            // Handle other LaTeX commands
+            text = text.replace(/\\textdagger\{\}/g, '†');
+            text = text.replace(/\\textdagger/g, '†');
+            text = text.replace(/\\&/g, '&');
+            text = text.replace(/\\_/g, '_');
+            text = text.replace(/\\%/g, '%');
+            text = text.replace(/\\\$/g, '$');
+            text = text.replace(/\~\\/g, ' ');
+            text = text.replace(/~/g, ' ');
+            
+            return text.trim();
+        }
+
+        // Simple BibTeX Parser
+        function parseBibTeX(bibtex) {
+            const entries = [];
+            
+            // Split into individual entries
+            const entryStrings = bibtex.split(/@\w+\{/).slice(1);
+            
+            for (let entryStr of entryStrings) {
+                const entry = {};
+                
+                // Extract the citation key (first thing before comma)
+                const keyMatch = entryStr.match(/^([^,]+),/);
+                if (keyMatch) {
+                    entry.key = keyMatch[1].trim();
+                }
+                
+                // Extract each field
+                const fieldMatches = entryStr.matchAll(/(\w+)\s*=\s*\{([^}]+)\}/g);
+                
+                for (const match of fieldMatches) {
+                    const fieldName = match[1].toLowerCase();
+                    let fieldValue = match[2];
+                    entry[fieldName] = cleanLatex(fieldValue);
+                }
+                
+                // Only add if we have at least a title
+                if (entry.title) {
+                    entries.push(entry);
+                }
+            }
+            
+            return entries;
+        }
+
+        // Extract conference abbreviation and year from venue
+        function extractConferenceTag(entry) {
+            const venue = entry.journal || entry.booktitle || '';
+            const year = entry.year || '';
+            
+            // Common conference abbreviations
+            const conferences = {
+                'SenSys': 'SenSys',
+                'MobiCom': 'MobiCom',
+                'MobiSys': 'MobiSys',
+                'IPSN': 'IPSN',
+                'NSDI': 'NSDI',
+                'SIGCOMM': 'SIGCOMM',
+                'INFOCOM': 'INFOCOM',
+                'NeurIPS': 'NeurIPS',
+                'ICML': 'ICML',
+                'ICLR': 'ICLR',
+                'CVPR': 'CVPR',
+                'ICCV': 'ICCV',
+                'ECCV': 'ECCV',
+                'ICRA': 'ICRA',
+                'IROS': 'IROS',
+                'RSS': 'RSS',
+                'CHI': 'CHI',
+                'UIST': 'UIST',
+                'UbiComp': 'UbiComp',
+                'IMWUT': 'IMWUT',
+                'PerCom': 'PerCom'
+            };
+            
+            // Try to find conference abbreviation in venue
+            for (const [key, abbr] of Object.entries(conferences)) {
+                if (venue.includes(key)) {
+                    return `${abbr}'${year.slice(-2)}`;
+                }
+            }
+            
+            // If no match, extract first letters of significant words
+            const words = venue.split(' ').filter(w => 
+                w.length > 3 && 
+                !['Proceedings', 'Conference', 'International', 'Workshop', 'Symposium'].includes(w)
+            );
+            if (words.length > 0) {
+                const abbr = words.slice(0, 2).map(w => w[0]).join('');
+                return `${abbr}'${year.slice(-2)}`;
+            }
+            
+            return year;
+        }
+
+        // Get color for conference tag
+        function getConferenceColor(tag) {
+            const colors = [
+                '#0091B3', // Sierra Sky Blue
+                '#DAA900', // California Poppy Gold
+                '#FFBF3C', // Golden Wheat
+                '#002856', // Lake Yosemite Blue
+                '#5B5B5B'  // Half Dome Slate Gray
+            ];
+            
+            // Use hash of tag to consistently assign colors
+            let hash = 0;
+            for (let i = 0; i < tag.length; i++) {
+                hash = tag.charCodeAt(i) + ((hash << 5) - hash);
+            }
+            return colors[Math.abs(hash) % colors.length];
+        }
+
+        // Render publications
+        function renderPublications(entries) {
+            const container = document.getElementById('publications-list');
+            
+            if (entries.length === 0) {
+                container.innerHTML = '<p class="placeholder">No publications found in pubs.bib file.</p>';
+                return;
+            }
+            
+            // Sort by year (descending)
+            entries.sort((a, b) => {
+                const yearA = parseInt(a.year) || 0;
+                const yearB = parseInt(b.year) || 0;
+                return yearB - yearA;
+            });
+            
+            let html = '';
+            
+            entries.forEach(entry => {
+                const title = entry.title || 'Untitled';
+                const authors = entry.author || 'Unknown authors';
+                const venue = entry.journal || entry.booktitle || 'Unknown venue';
+                const year = entry.year || '';
+                const url = entry.url || '#';
+                const code = entry.code || '';
+                const slides = entry.slides || '';
+                
+                const tag = extractConferenceTag(entry);
+                const color = getConferenceColor(tag);
+                const textColor = (color === '#FFBF3C') ? '#002856' : '#ffffff';
+                
+                html += `
+                    <div class="pub-card">
+                        <div class="pub-tag" style="background: ${color}; color: ${textColor};">${tag}</div>
+                        <div class="pub-content">
+                            <h4 onclick="window.open('${url}', '_blank')">${title}</h4>
+                            <div class="pub-authors">${authors}</div>
+                            <div class="pub-venue-line">
+                                <span class="pub-venue">${venue}, ${year}</span>
+                                <div class="pub-links">
+                                    <a href="${url}" target="_blank">Paper</a>
+                                    ${code ? `<a href="${code}" target="_blank">Code</a>` : ''}
+                                    ${slides ? `<a href="${slides}" target="_blank">Slides</a>` : ''}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+
+        // Load publications from pubs.bib
+        async function loadPublications() {
+            try {
+                const response = await fetch('pubs.bib');
+                if (!response.ok) {
+                    throw new Error('Could not load pubs.bib');
+                }
+                const bibtex = await response.text();
+                const entries = parseBibTeX(bibtex);
+                renderPublications(entries);
+            } catch (error) {
+                console.error('Error loading publications:', error);
+                document.getElementById('publications-list').innerHTML = 
+                    '<p class="placeholder">Could not load publications. Please ensure pubs.bib is in the same directory as this HTML file.</p>';
+            }
+        }
+
+        // Load publications when page loads
+        window.addEventListener('load', loadPublications);
+    </script>
+</body>
+</html>
