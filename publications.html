@@ -42,13 +42,21 @@
         // Clean LaTeX commands and convert to HTML
         function cleanLatex(text) {
             if (!text) return '';
-            
-            // Convert \textbf{...} to <strong>...</strong> - simple non-nested version
-            text = text.replace(/\\textbf\{([^}]+)\}/g, '<strong>$1</strong>');
-            
-            // Convert \textsuperscript{...} to <sup>...</sup>
-            text = text.replace(/\\textsuperscript\{([^}]+)\}/g, '<sup>$1</sup>');
-            
+
+            // Handle nested braces in \textbf{...}
+            // Recursively process from innermost to outermost
+            let lastText;
+            do {
+                lastText = text;
+                text = text.replace(/\\textbf\{([^{}]*)\}/g, '<strong>$1</strong>');
+            } while (text !== lastText);
+
+            // Handle nested braces in \textsuperscript{...}
+            do {
+                lastText = text;
+                text = text.replace(/\\textsuperscript\{([^{}]*)\}/g, '<sup>$1</sup>');
+            } while (text !== lastText);
+
             // Handle other LaTeX commands
             text = text.replace(/\\textdagger\{\}/g, '†');
             text = text.replace(/\\textdagger/g, '†');
@@ -58,91 +66,106 @@
             text = text.replace(/\\\$/g, '$');
             text = text.replace(/\~\\/g, ' ');
             text = text.replace(/~/g, ' ');
-            
+
             return text.trim();
         }
 
         // Simple BibTeX Parser
         function parseBibTeX(bibtex) {
             const entries = [];
-            
+
             // Split into individual entries
             const entryStrings = bibtex.split(/@\w+\{/).slice(1);
-            
+
             for (let entryStr of entryStrings) {
                 const entry = {};
-                
+
                 // Extract the citation key (first thing before comma)
                 const keyMatch = entryStr.match(/^([^,]+),/);
                 if (keyMatch) {
                     entry.key = keyMatch[1].trim();
                 }
-                
-                // Extract each field
-                const fieldMatches = entryStr.matchAll(/(\w+)\s*=\s*\{([^}]+)\}/g);
-                
-                for (const match of fieldMatches) {
+
+                // Extract each field - need to handle nested braces
+                // Match field name, then find matching closing brace
+                const fieldRegex = /(\w+)\s*=\s*\{/g;
+                let match;
+
+                while ((match = fieldRegex.exec(entryStr)) !== null) {
                     const fieldName = match[1].toLowerCase();
-                    let fieldValue = match[2];
-                    entry[fieldName] = cleanLatex(fieldValue);
+                    const startPos = fieldRegex.lastIndex;
+
+                    // Find the matching closing brace by counting depth
+                    let depth = 1;
+                    let pos = startPos;
+
+                    while (pos < entryStr.length && depth > 0) {
+                        if (entryStr[pos] === '{') {
+                            depth++;
+                        } else if (entryStr[pos] === '}') {
+                            depth--;
+                        }
+                        pos++;
+                    }
+
+                    if (depth === 0) {
+                        const fieldValue = entryStr.substring(startPos, pos - 1);
+                        entry[fieldName] = cleanLatex(fieldValue);
+                    }
                 }
-                
+
                 // Only add if we have at least a title
                 if (entry.title) {
                     entries.push(entry);
                 }
             }
-            
+
             return entries;
         }
 
-        // Extract conference abbreviation and year from venue
+        // Format author names from LaTeX to display format
+        function formatAuthors(authorString) {
+            if (!authorString) return 'Unknown authors';
+
+            // Split by 'and' to get individual authors
+            const authors = authorString.split(/\s+and\s+/);
+
+            // Process each author
+            const formattedAuthors = authors.map(author => {
+                author = author.trim();
+
+                // Check if the name is in "Last, First" format
+                if (author.includes(',')) {
+                    const parts = author.split(',').map(p => p.trim());
+                    if (parts.length === 2) {
+                        // Reverse to "First Last" format
+                        return `${parts[1]} ${parts[0]}`;
+                    }
+                }
+
+                // If not in "Last, First" format, return as is
+                return author;
+            });
+
+            // Join with commas
+            return formattedAuthors.join(', ');
+        }
+
+        // Extract conference abbreviation from venue (content in parentheses)
         function extractConferenceTag(entry) {
             const venue = entry.journal || entry.booktitle || '';
             const year = entry.year || '';
             
-            // Common conference abbreviations
-            const conferences = {
-                'SenSys': 'SenSys',
-                'MobiCom': 'MobiCom',
-                'MobiSys': 'MobiSys',
-                'IPSN': 'IPSN',
-                'NSDI': 'NSDI',
-                'SIGCOMM': 'SIGCOMM',
-                'INFOCOM': 'INFOCOM',
-                'NeurIPS': 'NeurIPS',
-                'ICML': 'ICML',
-                'ICLR': 'ICLR',
-                'CVPR': 'CVPR',
-                'ICCV': 'ICCV',
-                'ECCV': 'ECCV',
-                'ICRA': 'ICRA',
-                'IROS': 'IROS',
-                'RSS': 'RSS',
-                'CHI': 'CHI',
-                'UIST': 'UIST',
-                'UbiComp': 'UbiComp',
-                'IMWUT': 'IMWUT',
-                'PerCom': 'PerCom'
-            };
+            // Try to extract content within parentheses
+            const parenMatch = venue.match(/\(([^)]+)\)/);
             
-            // Try to find conference abbreviation in venue
-            for (const [key, abbr] of Object.entries(conferences)) {
-                if (venue.includes(key)) {
-                    return `${abbr}'${year.slice(-2)}`;
-                }
-            }
-            
-            // If no match, extract first letters of significant words
-            const words = venue.split(' ').filter(w => 
-                w.length > 3 && 
-                !['Proceedings', 'Conference', 'International', 'Workshop', 'Symposium'].includes(w)
-            );
-            if (words.length > 0) {
-                const abbr = words.slice(0, 2).map(w => w[0]).join('');
+            if (parenMatch) {
+                // Found content in parentheses, use it as the abbreviation
+                const abbr = parenMatch[1];
                 return `${abbr}'${year.slice(-2)}`;
             }
             
+            // If no parentheses found, return just the year
             return year;
         }
 
@@ -164,7 +187,7 @@
             return colors[Math.abs(hash) % colors.length];
         }
 
-        // Render publications
+        // Render publications grouped by keyword
         function renderPublications(entries) {
             const container = document.getElementById('publications-list');
             
@@ -173,46 +196,92 @@
                 return;
             }
             
-            // Sort by year (descending)
-            entries.sort((a, b) => {
-                const yearA = parseInt(a.year) || 0;
-                const yearB = parseInt(b.year) || 0;
-                return yearB - yearA;
+            // Group publications by keyword
+            const categories = {
+                'journal': { title: 'Journal Publications', entries: [] },
+                'conference': { title: 'Conference Publications', entries: [] },
+                'workshop': { title: 'Workshop Publications', entries: [] },
+                'poster': { title: 'Posters', entries: [] },
+                'thesis': { title: 'PhD Thesis', entries: [] }
+            };
+            
+            // Categorize entries based on keywords field
+            entries.forEach(entry => {
+                const keywords = (entry.keywords || '').toLowerCase();
+                
+                if (keywords.includes('journal')) {
+                    categories.journal.entries.push(entry);
+                } else if (keywords.includes('conference')) {
+                    categories.conference.entries.push(entry);
+                } else if (keywords.includes('workshop')) {
+                    categories.workshop.entries.push(entry);
+                } else if (keywords.includes('poster')) {
+                    categories.poster.entries.push(entry);
+                } else if (keywords.includes('thesis')) {
+                    categories.thesis.entries.push(entry);
+                } else {
+                    // Default to conference if no keyword
+                    categories.conference.entries.push(entry);
+                }
             });
             
+            // Sort entries within each category by year (descending)
+            Object.values(categories).forEach(category => {
+                category.entries.sort((a, b) => {
+                    const yearA = parseInt(a.year) || 0;
+                    const yearB = parseInt(b.year) || 0;
+                    return yearB - yearA;
+                });
+            });
+            
+            // Render HTML
             let html = '';
             
-            entries.forEach(entry => {
-                const title = entry.title || 'Untitled';
-                const authors = entry.author || 'Unknown authors';
-                const venue = entry.journal || entry.booktitle || 'Unknown venue';
-                const year = entry.year || '';
-                const url = entry.url || '#';
-                const code = entry.code || '';
-                const slides = entry.slides || '';
+            // Render each category in order
+            const categoryOrder = ['journal', 'conference', 'workshop', 'poster', 'thesis'];
+            
+            categoryOrder.forEach(catKey => {
+                const category = categories[catKey];
                 
-                const tag = extractConferenceTag(entry);
-                const color = getConferenceColor(tag);
-                const textColor = (color === '#FFBF3C') ? '#002856' : '#ffffff';
-                
-                html += `
-                    <div class="pub-card">
-                        <div class="pub-tag" style="background: ${color}; color: ${textColor};">${tag}</div>
-                        <div class="pub-content">
-                            <h4 onclick="window.open('${url}', '_blank')">${title}</h4>
-                            <div class="pub-authors">${authors}</div>
-                            <div class="pub-venue-line">
-                                <span class="pub-venue">${venue}, ${year}</span>
-                                <div class="pub-links">
-                                    <a href="${url}" target="_blank">Paper</a>
-                                    ${code ? `<a href="${code}" target="_blank">Code</a>` : ''}
-                                    ${slides ? `<a href="${slides}" target="_blank">Slides</a>` : ''}
+                if (category.entries.length > 0) {
+                    html += `<h3>${category.title}</h3>`;
+                    
+                    category.entries.forEach(entry => {
+                        const title = entry.title || 'Untitled';
+                        const authors = formatAuthors(entry.author);
+                        const venue = entry.journal || entry.booktitle || 'Unknown venue';
+                        const year = entry.year || '';
+                        const url = entry.url || '#';
+                        const code = entry.code || '';
+                        const slides = entry.slides || '';
+
+                        const tag = extractConferenceTag(entry);
+                        const color = getConferenceColor(tag);
+                        const textColor = (color === '#FFBF3C') ? '#002856' : '#ffffff';
+
+                        html += `
+                            <div class="pub-card">
+                                <div class="pub-tag" style="background: ${color}; color: ${textColor};">${tag}</div>
+                                <div class="pub-content">
+                                    <h4 onclick="window.open('${url}', '_blank')">${title}</h4>
+                                    <div class="pub-authors">${authors}</div>
+                                    <div class="pub-venue-line">
+                                        <span class="pub-venue">${venue}, ${year}</span>
+                                        <div class="pub-links">
+                                            ${code ? `<a href="${code}" target="_blank">Code</a>` : ''}
+                                            ${slides ? `<a href="${slides}" target="_blank">Slides</a>` : ''}
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                `;
+                        `;
+                    });
+                }
             });
+            
+            if (html === '') {
+                html = '<p class="placeholder">No publications found in pubs.bib file.</p>';
+            }
             
             container.innerHTML = html;
         }
