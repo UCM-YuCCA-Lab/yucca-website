@@ -51,7 +51,7 @@ strong {
 h3 {
   font-size: 27px;
   margin-top: 0;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   font-weight: 600;
 }
 
@@ -66,7 +66,7 @@ h6 {
 p {
   font-size: 16px;
   line-height: 1.6;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
 li {
@@ -77,7 +77,7 @@ li {
 }
 
 ul {
-  margin-bottom: 16px;
+  margin-bottom: 8px;
 }
 
 hr {
@@ -164,7 +164,7 @@ button:last-child::after {
 .pub-card {
   display: flex;
   gap: 15px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   padding: 16px;
   border: 1px solid #e0e0e0;
   border-radius: 8px;
@@ -250,11 +250,11 @@ button:last-child::after {
 
 /* Additional section spacing */
 .research-summary {
-  margin-bottom: 20px;
+  margin-bottom: 0px;
 }
 
 .row {
-  margin-bottom: 20px;
+  margin-bottom: 0px;
 }
 
 /* Improve readability for specific sections */
@@ -283,7 +283,63 @@ a:hover {
   border: 1px solid #ffc107;
   border-radius: 6px;
   padding: 16px;
-  margin: 20px 0;
+  margin: 0px 0;
+}
+
+/* Mentorship section styles */
+.mentorship-intro {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 10px;
+  line-height: 1.6;
+}
+
+.mentorship-subsection {
+  margin-bottom: 15px;
+}
+
+.mentorship-subsection h5 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #002856;
+  margin-bottom: 16px;
+  margin-top: 0;
+}
+
+.mentee-item {
+  margin-bottom: 10px;
+  padding-left: 0;
+}
+
+.mentee-name {
+  font-weight: 600;
+  color: #333;
+}
+
+.mentee-info {
+  color: #666;
+  margin-left: 4px;
+}
+
+.program-item {
+  margin-bottom: 10px;
+}
+
+.program-name {
+  font-weight: 600;
+  color: #0091B3;
+  font-size: 16px;
+}
+
+.program-cohort {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding-left: 20px;
+}
+
+.cohort-year {
+  font-weight: 600;
+  color: #444;
 }
 
 </style>
@@ -486,41 +542,103 @@ For the full publication list, see <a href="../../publications.html">YuCCA Lab's
 
 <div class="row">
 <div class="col-md-12">
-  <h3> Mentorship </h3>
-<h6> I have mentored approximately 40 students across HS, BS, MS, and PhD levels since 2020, including the following notable individuals:</h6>
-<ul>
-  <li> Ye Tian, PhD'29 at UCSD, <b>Publication:</b> <a href="https://arxiv.org/abs/2507.13737">MASS'25</a>, <a href="https://dl.acm.org/doi/full/10.1145/3724129">TIOT'25</a> </li>
-  <li> Louis Gutierrez, PhD student at UCSD &#8594; E3R Inc., <b>Publication:</b> <a href="https://ieeexplore.ieee.org/abstract/document/10577411?casa_token=AxUihDrlA3AAAAAA:HsHMvzIFFWKwoQboW23jyvM51Z4YvC_aApypKfVX9ee8_eJQ6Q-XqA15hgOOzq2RWikha5gZ">IPSN'24</a> </li>
-  <li> Alexander Redding, PhD'27 at UCSD, <b>Publication:</b> <a href="https://dl.acm.org/doi/abs/10.1145/3615991.3616404">MobiCom'23 workshop</a> </li>
-  <li> Danlin Jiang, MS'23 at UCSD &#8594; RF-Lambda, <b>Publication:</b> <a href="https://www.mdpi.com/1424-8220/24/3/1014">MDPI Sensors'24</a></li>
-  <li> Shengfan Hu, MS'24 at UCSD &#8594; Supermicro, <b>Publication:</b> <a href="https://dl.acm.org/doi/abs/10.1145/3615991.3616404">MobiCom'23 workshop</a>, <a href="https://ieeexplore.ieee.org/abstract/document/10546794?casa_token=uDqE-SUAPDUAAAAA:gM9Soa7e8n07HDFnrHJ2kikJbrlqb892z3UWD25gYZ8G0QSCdkgOeOpm2CduaaXhG2eU5DHj">DATE'24</a> </li>
-  <li> Run Wang, BS'26 at UCSD, <b>Publication:</b> <a href="https://dl.acm.org/doi/abs/10.1145/3666025.3699427?casa_token=RAR6ix3FKOkAAAAA:LkWTWjeo_ucXBWLZfyOGloWQZE43Bu1z6ZPCzmSn_NC2BYlBZqEmyOEpnNPwUFdFfMulCOWxeYg">SenSys'24 poster</a> </li>
-  <li> Rushil Chandrupatla, BS'26 at UCSD, <b>Publication:</b> <a href="https://dl.acm.org/doi/10.1145/3749496">IMWUT'25</a>, <a href="https://dl.acm.org/doi/abs/10.1145/3715014.3722074">SenSys'25</a> </li>
-  <li> Dylan Chu, BS'25 at UCSD, <b>Publication:</b> <a href="https://dl.acm.org/doi/10.1145/3749496">IMWUT'25</a> </li>
-  <li> Ivannia Gomez Moreno, BS'23 at CETYS University &#8594; MS'26 at TUM, <b>Publication:</b> <a href="https://ieeexplore.ieee.org/abstract/document/10473878?casa_token=vk0FqnZXCYYAAAAA:WLHek5Byt45FqYm0W_jL-fJAdp6IKFgw3L9yrfMFjDsfrh-7gr4P7XYOO_H_lwf674sFBRA8">ASP-DAC'24</a>, <a href="https://ieeexplore.ieee.org/abstract/document/10577411?casa_token=AxUihDrlA3AAAAAA:HsHMvzIFFWKwoQboW23jyvM51Z4YvC_aApypKfVX9ee8_eJQ6Q-XqA15hgOOzq2RWikha5gZ">IPSN'24</a></li>
-  <li> Quanling Zhao, BS'24 at UCSD &#8594; PhD'29 at UCSD, <b>Publication:</b> <a href="https://ojs.aaai.org/index.php/AAAI/article/view/34442">AAAI'25</a>, <a href="https://ieeexplore.ieee.org/abstract/document/10546794?casa_token=uDqE-SUAPDUAAAAA:gM9Soa7e8n07HDFnrHJ2kikJbrlqb892z3UWD25gYZ8G0QSCdkgOeOpm2CduaaXhG2eU5DHj">DATE'24</a>, <a href="https://dl.acm.org/doi/abs/10.1145/3495243.3558757">MobiCom'22 demo</a> </li>
-  <li> Jinhao Liu, BS'22 at UCSD &#8594; Whova, <b>Publication:</b> <a href="https://ieeexplore.ieee.org/abstract/document/9874640?casa_token=7yJXoa0sMncAAAAA:xj43DpDrQQVum_PIKUKl18PHHU7pri_RkFaiFm8xz69iQYVK1nDCPicaYnRC9NVZNGxp5NNh">SmartIoT'22</a></li>
-  <li> Emily Ekaireb, BS'22 at UCSD &#8594; MS'24 at UCSD, <b>Publication:</b> <a href="https://dl.acm.org/doi/abs/10.1145/3532577.3532591">WNS3'22</a></li>
-  <li> Xueyang Song, BS'21 at UCSD &#8594; MS'23 at Stanford, <b>Publication:</b> <a href="https://ieeexplore.ieee.org/abstract/document/9269122?casa_token=97OIlBaxEYAAAAAA:36TKGy2uXUtzkyerjcwx37CEM-rLwgwCmTDdBvlc2qqVz3cMkUmhi4qSvkNDjLd7gxfiRDL4">CNSM'20</a>, <a href="https://ieeexplore.ieee.org/abstract/document/9896167?casa_token=zlZMfDgQGM4AAAAA:r8mrwbazLqR0mnOPQGj0gUjWlp4dA_OCLjX4fqfNLmDecmeTe8ABsWARS24uYWFuT6HfNk5T">TNSM'22</a></li>
-</ul>
-<h6>I also served as a Mentor in the following programs:</h6>
-<ul>
-  <li> <a href="https://sites.google.com/ucsd.edu/ersp/home">Early Research Scholarship Program (ERSP)</a> at UCSD
-  <ul>
-    <li> 2022-2023: Jennifer Tanurdjaja (BS), Aammya Sapra (BS), Duanhui Li (BS), Jezebel Yangari (BS) <br>
-    <b>Project:</b> <a href="./docs/ersp2022/ersp2022.pdf"> Lightweight Hyperdimensional Computing (HDC) Algorithm for Microcontrollers</a> <br>
-    <li> 2021-2022: Quanling Zhao (BS), Kai Lee (BS), Jeffrey Liu (BS), Muhammad Huzaifa (BS) <br>
-    <b>Project:</b> <a href="./docs/ersp2021/ersp2021.pdf"> Hyperdimensional Computing on IoT Devices</a> <br>
-    <b>Publication:</b> <a href="https://dl.acm.org/doi/abs/10.1145/3495243.3558757">MobiCom'22 demo</a> </li>
-  </ul>
-  <li> <a href="http://resilientmaterials.ucsd.edu/ENLACE">ENLACE Summer Research Program</a> at UCSD
-  <ul>
-    <li> 2024: Audrick Bolaños Linares (BS), Cesar Daniel Ortiz Aguilera (BS), Diego Muñiz De las Casas (HS), Marena Schiess (HS)<br>
-    <b>Project:</b> <a href="./docs/enlace2024/enlace2024.pdf">Human Activity Data Collection, Analysis and LLM-based Zero Shot Reasoning</a> </li>
-    <li> 2022: Paul Verdugo (BS), Enya Solis (BS), Valeria Leal (HS), Mariana Flores (HS)<br>
-    <b>Project:</b> <a href="./docs/enlace2022/enlace2022.pdf"> Smart Elderly Monitoring with Mobile Robots</a> </li>
-  </ul>
-</ul>
+  <h3>Mentorship</h3>
+
+  <p class="mentorship-intro">
+    Since 2020, I have mentored approximately 40 students across high school, undergraduate, master's, and doctoral levels, fostering research excellence and professional development.
+  </p>
+
+  <div class="mentorship-subsection">
+    <h5>Individual Mentees</h5>
+    <ul>
+      <li class="mentee-item">
+        <span class="mentee-name">Ye Tian</span><span class="mentee-info">PhD'29 at UCSD</span><br>
+        <b>Publications:</b> <a href="https://arxiv.org/abs/2507.13737">MASS'25</a>, <a href="https://dl.acm.org/doi/full/10.1145/3724129">TIOT'25</a>
+      </li>
+      <li class="mentee-item">
+        <span class="mentee-name">Louis Gutierrez</span><span class="mentee-info">PhD student at UCSD → E3R Inc.</span><br>
+        <b>Publication:</b> <a href="https://ieeexplore.ieee.org/abstract/document/10577411?casa_token=AxUihDrlA3AAAAAA:HsHMvzIFFWKwoQboW23jyvM51Z4YvC_aApypKfVX9ee8_eJQ6Q-XqA15hgOOzq2RWikha5gZ">IPSN'24</a>
+      </li>
+      <li class="mentee-item">
+        <span class="mentee-name">Alexander Redding</span><span class="mentee-info">PhD'27 at UCSD</span><br>
+        <b>Publication:</b> <a href="https://dl.acm.org/doi/abs/10.1145/3615991.3616404">MobiCom'23 workshop</a>
+      </li>
+      <li class="mentee-item">
+        <span class="mentee-name">Danlin Jiang</span><span class="mentee-info">MS'23 at UCSD → RF-Lambda</span><br>
+        <b>Publication:</b> <a href="https://www.mdpi.com/1424-8220/24/3/1014">MDPI Sensors'24</a>
+      </li>
+      <li class="mentee-item">
+        <span class="mentee-name">Shengfan Hu</span><span class="mentee-info">MS'24 at UCSD → Supermicro</span><br>
+        <b>Publications:</b> <a href="https://dl.acm.org/doi/abs/10.1145/3615991.3616404">MobiCom'23 workshop</a>, <a href="https://ieeexplore.ieee.org/abstract/document/10546794?casa_token=uDqE-SUAPDUAAAAA:gM9Soa7e8n07HDFnrHJ2kikJbrlqb892z3UWD25gYZ8G0QSCdkgOeOpm2CduaaXhG2eU5DHj">DATE'24</a>
+      </li>
+      <li class="mentee-item">
+        <span class="mentee-name">Run Wang</span><span class="mentee-info">BS'26 at UCSD</span><br>
+        <b>Publication:</b> <a href="https://dl.acm.org/doi/abs/10.1145/3666025.3699427?casa_token=RAR6ix3FKOkAAAAA:LkWTWjeo_ucXBWLZfyOGloWQZE43Bu1z6ZPCzmSn_NC2BYlBZqEmyOEpnNPwUFdFfMulCOWxeYg">SenSys'24 poster</a>
+      </li>
+      <li class="mentee-item">
+        <span class="mentee-name">Rushil Chandrupatla</span><span class="mentee-info">BS'26 at UCSD</span><br>
+        <b>Publications:</b> <a href="https://dl.acm.org/doi/10.1145/3749496">IMWUT'25</a>, <a href="https://dl.acm.org/doi/abs/10.1145/3715014.3722074">SenSys'25</a>
+      </li>
+      <li class="mentee-item">
+        <span class="mentee-name">Dylan Chu</span><span class="mentee-info">BS'25 at UCSD</span><br>
+        <b>Publication:</b> <a href="https://dl.acm.org/doi/10.1145/3749496">IMWUT'25</a>
+      </li>
+      <li class="mentee-item">
+        <span class="mentee-name">Ivannia Gomez Moreno</span><span class="mentee-info">BS'23 at CETYS University → MS'26 at TUM</span><br>
+        <b>Publications:</b> <a href="https://ieeexplore.ieee.org/abstract/document/10473878?casa_token=vk0FqnZXCYYAAAAA:WLHek5Byt45FqYm0W_jL-fJAdp6IKFgw3L9yrfMFjDsfrh-7gr4P7XYOO_H_lwf674sFBRA8">ASP-DAC'24</a>, <a href="https://ieeexplore.ieee.org/abstract/document/10577411?casa_token=AxUihDrlA3AAAAAA:HsHMvzIFFWKwoQboW23jyvM51Z4YvC_aApypKfVX9ee8_eJQ6Q-XqA15hgOOzq2RWikha5gZ">IPSN'24</a>
+      </li>
+      <li class="mentee-item">
+        <span class="mentee-name">Quanling Zhao</span><span class="mentee-info">BS'24 at UCSD → PhD'29 at UCSD</span><br>
+        <b>Publications:</b> <a href="https://ojs.aaai.org/index.php/AAAI/article/view/34442">AAAI'25</a>, <a href="https://ieeexplore.ieee.org/abstract/document/10546794?casa_token=uDqE-SUAPDUAAAAA:gM9Soa7e8n07HDFnrHJ2kikJbrlqb892z3UWD25gYZ8G0QSCdkgOeOpm2CduaaXhG2eU5DHj">DATE'24</a>, <a href="https://dl.acm.org/doi/abs/10.1145/3495243.3558757">MobiCom'22 demo</a>
+      </li>
+      <li class="mentee-item">
+        <span class="mentee-name">Jinhao Liu</span><span class="mentee-info">BS'22 at UCSD → Whova</span><br>
+        <b>Publication:</b> <a href="https://ieeexplore.ieee.org/abstract/document/9874640?casa_token=7yJXoa0sMncAAAAA:xj43DpDrQQVum_PIKUKl18PHHU7pri_RkFaiFm8xz69iQYVK1nDCPicaYnRC9NVZNGxp5NNh">SmartIoT'22</a>
+      </li>
+      <li class="mentee-item">
+        <span class="mentee-name">Emily Ekaireb</span><span class="mentee-info">BS'22 at UCSD → MS'24 at UCSD</span><br>
+        <b>Publication:</b> <a href="https://dl.acm.org/doi/abs/10.1145/3532577.3532591">WNS3'22</a>
+      </li>
+      <li class="mentee-item">
+        <span class="mentee-name">Xueyang Song</span><span class="mentee-info">BS'21 at UCSD → MS'23 at Stanford</span><br>
+        <b>Publications:</b> <a href="https://ieeexplore.ieee.org/abstract/document/9269122?casa_token=97OIlBaxEYAAAAAA:36TKGy2uXUtzkyerjcwx37CEM-rLwgwCmTDdBvlc2qqVz3cMkUmhi4qSvkNDjLd7gxfiRDL4">CNSM'20</a>, <a href="https://ieeexplore.ieee.org/abstract/document/9896167?casa_token=zlZMfDgQGM4AAAAA:r8mrwbazLqR0mnOPQGj0gUjWlp4dA_OCLjX4fqfNLmDecmeTe8ABsWARS24uYWFuT6HfNk5T">TNSM'22</a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="mentorship-subsection">
+    <h5>Structured Mentorship Programs</h5>
+
+    <div class="program-item">
+      <span class="program-name"><a href="https://sites.google.com/ucsd.edu/ersp/home">Early Research Scholarship Program (ERSP)</a></span> at UCSD
+      <ul class="program-cohort">
+        <li>
+          <span class="cohort-year">2022-2023:</span> Jennifer Tanurdjaja (BS), Aammya Sapra (BS), Duanhui Li (BS), Jezebel Yangari (BS)<br>
+          <b>Project:</b> <a href="./docs/ersp2022/ersp2022.pdf">Lightweight Hyperdimensional Computing (HDC) Algorithm for Microcontrollers</a>
+        </li>
+        <li>
+          <span class="cohort-year">2021-2022:</span> Quanling Zhao (BS), Kai Lee (BS), Jeffrey Liu (BS), Muhammad Huzaifa (BS)<br>
+          <b>Project:</b> <a href="./docs/ersp2021/ersp2021.pdf">Hyperdimensional Computing on IoT Devices</a><br>
+          <b>Publication:</b> <a href="https://dl.acm.org/doi/abs/10.1145/3495243.3558757">MobiCom'22 demo</a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="program-item">
+      <span class="program-name"><a href="http://resilientmaterials.ucsd.edu/ENLACE">ENLACE Summer Research Program</a></span> at UCSD
+      <ul class="program-cohort">
+        <li>
+          <span class="cohort-year">2024:</span> Audrick Bolaños Linares (BS), Cesar Daniel Ortiz Aguilera (BS), Diego Muñiz De las Casas (HS), Marena Schiess (HS)<br>
+          <b>Project:</b> <a href="./docs/enlace2024/enlace2024.pdf">Human Activity Data Collection, Analysis and LLM-based Zero Shot Reasoning</a>
+        </li>
+        <li>
+          <span class="cohort-year">2022:</span> Paul Verdugo (BS), Enya Solis (BS), Valeria Leal (HS), Mariana Flores (HS)<br>
+          <b>Project:</b> <a href="./docs/enlace2022/enlace2022.pdf">Smart Elderly Monitoring with Mobile Robots</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
 </div> <!-- col-md-12 -->
 </div> <!-- row -->
 
