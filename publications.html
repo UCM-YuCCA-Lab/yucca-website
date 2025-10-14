@@ -26,7 +26,8 @@
 
     <div class="container">
         <h2>Publications</h2>
-        <p style="margin-bottom: 2rem;">Our research has been published in leading conferences and journals in artificial intelligence, robotics, and human-computer interaction.</p>
+        <p>Our research has been published in leading conferences and journals embedded AI, sensor systems and design automation.</p>
+        <p>(<sup>*</sup> Equal contribution)</p>
         
         <div id="publications-list">
             <p class="placeholder" style="margin-bottom: 2rem;">Loading publications from pubs.bib...</p>
@@ -57,9 +58,21 @@
                 text = text.replace(/\\textsuperscript\{([^{}]*)\}/g, '<sup>$1</sup>');
             } while (text !== lastText);
 
+            // Handle LaTeX umlauts: \" for any character (with or without braces)
+            text = text.replace(/\{?\\"\{?([a-zA-Z])\}?\}?/g, (match, char) => {
+                const umlautMap = {
+                    'a': 'ä', 'o': 'ö', 'u': 'ü', 'e': 'ë', 'i': 'ï', 'y': 'ÿ',
+                    'A': 'Ä', 'O': 'Ö', 'U': 'Ü', 'E': 'Ë', 'I': 'Ï', 'Y': 'Ÿ'
+                };
+                return umlautMap[char] || char;
+            });
+
             // Handle other LaTeX commands
-            text = text.replace(/\\textdagger\{\}/g, '†');
-            text = text.replace(/\\textdagger/g, '†');
+            //text = text.replace(/\\textdagger\{\}/g, '†');
+            //text = text.replace(/\\textdagger/g, '†');
+            // Temp Fix: remove \textdagger
+            text = text.replace(/\\textdagger\{\}/g, '');
+            text = text.replace(/\\textdagger/g, '');
             text = text.replace(/\\&/g, '&');
             text = text.replace(/\\_/g, '_');
             text = text.replace(/\\%/g, '%');
@@ -248,8 +261,8 @@
                     
                     category.entries.forEach(entry => {
                         const title = entry.title || 'Untitled';
-                        const authors = formatAuthors(entry.author);
-                        const venue = entry.journal || entry.booktitle || 'Unknown venue';
+                        const authors = entry.author ? formatAuthors(entry.author) : '';
+                        const venue = entry.journal || entry.booktitle || '';
                         const year = entry.year || '';
                         const url = entry.url || '#';
                         const code = entry.code || '';
@@ -259,19 +272,31 @@
                         const color = getConferenceColor(tag);
                         const textColor = (color === '#FFBF3C') ? '#002856' : '#ffffff';
 
+                        // Build venue line only if there's venue or year
+                        let venueText = '';
+                        if (venue && year) {
+                            venueText = `${venue}, ${year}`;
+                        } else if (venue) {
+                            venueText = venue;
+                        } else if (year) {
+                            venueText = year;
+                        }
+
                         html += `
                             <div class="pub-card">
                                 <div class="pub-tag" style="background: ${color}; color: ${textColor};">${tag}</div>
                                 <div class="pub-content">
                                     <h4 onclick="window.open('${url}', '_blank')">${title}</h4>
-                                    <div class="pub-authors">${authors}</div>
-                                    <div class="pub-venue-line">
-                                        <span class="pub-venue">${venue}, ${year}</span>
-                                        <div class="pub-links">
-                                            ${code ? `<a href="${code}" target="_blank">Code</a>` : ''}
-                                            ${slides ? `<a href="${slides}" target="_blank">Slides</a>` : ''}
+                                    ${authors ? `<div class="pub-authors">${authors}</div>` : ''}
+                                    ${venueText || code || slides ? `
+                                        <div class="pub-venue-line">
+                                            ${venueText ? `<span class="pub-venue">${venueText}</span>` : ''}
+                                            <div class="pub-links">
+                                                ${code ? `<a href="${code}" target="_blank">Code</a>` : ''}
+                                                ${slides ? `<a href="${slides}" target="_blank">Slides</a>` : ''}
+                                            </div>
                                         </div>
-                                    </div>
+                                    ` : ''}
                                 </div>
                             </div>
                         `;
