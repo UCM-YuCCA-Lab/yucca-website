@@ -290,16 +290,14 @@
                                 <div class="pub-content">
                                     <h4 onclick="window.open('${url}', '_blank')">${title}</h4>
                                     ${authors ? `<div class="pub-authors">${authors}</div>` : ''}
-                                    ${venueText || code || slides ? `
-                                        <div class="pub-venue-line">
-                                            ${venueText ? `<span class="pub-venue">${venueText}</span>` : ''}
-                                            <div class="pub-links">
-                                                ${code ? `<a href="${code}" target="_blank">Code</a>` : ''}
-                                                ${slides ? `<a href="${slides}" target="_blank">Slides</a>` : ''}
-                                            </div>
+                                    ${venueText ? `<div class="pub-venue">${venueText}</div>` : ''}
+                                    ${code || slides || award ? `
+                                        <div class="pub-links-line">
+                                            ${code ? `<a href="${code}" target="_blank">Code</a>` : ''}
+                                            ${slides ? `<a href="${slides}" target="_blank">Slides</a>` : ''}
+                                            ${award ? `<span class="pub-award" style="color: red;">${award}</span>` : ''}
                                         </div>
                                     ` : ''}
-                                    ${award ? `<div class="pub-award" style="color: red;">${award}</div>` : ''}
                                 </div>
                             </div>
                         `;

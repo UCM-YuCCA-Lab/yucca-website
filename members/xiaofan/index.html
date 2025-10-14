@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-M8M8RKSXXK"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-M8M8RKSXXK');
+</script>
+
+<meta charset="utf-8">
+<title>Xiaofan Yu</title>
+<meta name="description" content="Xiaofan Yu's Homepage">
+<meta name="author" content="Xiaofan Yu">
+<link rel="icon" type="image/png" href="../../figures/yucca_small.png">
+
+<!-- Enable responsive viewport -->
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+<!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<!-- Le styles -->
+<!--<link href="https://kbroman.org/simple_site/assets/themes/twitter/bootstrap/css/bootstrap.2.2.2.min.css" rel="stylesheet">-->
+
+<link href="./css/body.css" rel="stylesheet" type="text/css" media="all">
+<!--<link href="https://kbroman.org/simple_site/assets/themes/twitter/css/kbroman.css" rel="stylesheet" type="text/css" media="all">-->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+<!-- Le fav and touch icons -->
+<link href="./css/all.css" rel="stylesheet">
+
+
+<!-- Academia icons to use Google Scholar icon -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+
+<!--load all styles -->
+
+<!-- for styles -->
+<style>
+strong {
+  font-weight: bold;
+}
+
+h3 {
+  font-size: 27px;
+}
+
+h5 {
+  font-size: 22px;
+}
+
+h6 {
+  font-size: 17px;
+}
+
+p {
+  font-size: 16px;
+}
+
+li {
+  font-size: 16px;
+  margin-bottom: 8px;
+  margin-top: 8px;
+}
+
+hr {
+    padding: 3px;
+    margin: 0px;
+}
+
+.container-limited {
+  max-width: 900px; /* Set the maximum width */
+  margin: 30px auto 0; /* Adds 50px space on top */
+  padding: 0 15px;  /* Add padding for small screens */
+}
+
+.publications-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* Align everything to the left */
+  gap: 20px; /* Add some space between the title and buttons */
+}
+
+.buttons {
+  display: flex;
+  gap: 10px; /* Adjust the spacing between the buttons */
+}
+
+button {
+  background: none;      /* Remove background */
+  border: none;          /* Remove border */
+  padding: 0;            /* Remove padding to make it look like text */
+  margin-right: 10px;    /* Optional: Add some space between buttons */
+  color: #808080;        /* Default text color (you can adjust) */
+  font-size: 16px;       /* Adjust font size */
+  cursor: pointer;       /* Show pointer on hover */
+}
+
+button:hover {
+  color: black; /* Change color on hover */
+  text-decoration: underline; /* Optional: Underline on hover */
+}
+
+button.selected {
+  color: #007bff;        /* Change text color when selected (you can adjust) */
+  text-decoration: underline; /* Add underline to selected button */
+}
+
+button:focus {
+  outline: none;         /* Remove focus outline */
+}
+
+/* Add a "/" after each button except the last one */
+button::after {
+  content: "/";
+  margin-left: 10px; /* Adds space between button and "/" */
+  color: #333; /* Color of the slash (you can change this) */
+}
+
+/* Remove the "/" from the last button */
+button:last-child::after {
+  content: "";
+}
+
+.topics-buttons button {
+  background: none;      /* Remove background */
+  border: none;          /* Remove border */
+  padding: 0;            /* Remove padding to make it look like text */
+  margin-right: 10px;    /* Optional: Add some space between buttons */
+  color: #808080;        /* Default text color (you can adjust) */
+  font-size: 16px;       /* Adjust font size */
+  cursor: pointer;       /* Show pointer on hover */
+}
+
+.topics-buttons button.selected {
+  color: #007bff;        /* Change text color when selected (you can adjust) */
+  text-decoration: underline; /* Add underline to selected button */
+}
+
+.topics-buttons button:hover {
+  color: black; /* Change color on hover */
+}
+
+/* Publication card styles */
+.pub-card {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding: 12px;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  background: #fff;
+  transition: box-shadow 0.2s;
+}
+
+.pub-card:hover {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.pub-tag {
+  flex-shrink: 0;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 12px;
+  height: fit-content;
+  white-space: nowrap;
+  width: 80px;
+  text-align: center;
+}
+
+.pub-content {
+  flex: 1;
+}
+
+.pub-content h4 {
+  margin: 0 0 8px 0;
+  font-size: 16px;
+  font-weight: normal;
+  color: #002856;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.pub-content h4:hover {
+  color: #0091B3;
+}
+
+.pub-authors {
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 6px;
+}
+
+.pub-venue {
+  font-style: italic;
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 4px;
+}
+
+.pub-links-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.pub-links-line a {
+  font-size: 14px;
+  color: #0091B3;
+  text-decoration: none;
+  padding: 2px 6px;
+  border: 1px solid #0091B3;
+  border-radius: 3px;
+  transition: background 0.2s, color 0.2s;
+}
+
+.pub-links-line a:hover {
+  background: #0091B3;
+  color: #fff;
+}
+
+.pub-award {
+  color: red;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container-limited">
+
+<div class="content">
+
+<div class="row">
+  <div class="col-md-4">
+  <a href="./images/me_ucsd2024.jpg"><img src="./images/me_ucsd2024.jpg" width="250" alt="Headshot photo of me"/></a>
+  <p><small>
+  [Photo credit: <a href="https://cseweb.ucsd.edu/~hshi/">Hui Shi</a>]
+  </small></p>
+  </div> <!-- col-md-3 -->
+
+  <div class="col-md-8">
+  <h3>Xiaofan Yu (于晓凡)</h3>
+  <p>Assistant Professor, Department of Electrical Engineering<br>
+     University of California, Merced
+  </p>
+
+  <p>
+    E-mail: <a href="mailto:xiaofanyu@ucmerced.edu">xiaofanyu@ucmerced.edu</a><br>
+    Office: <a href="https://maps.app.goo.gl/NXGCJekaKhNbM44b9">Science and Engineering Building 2 (SE2)</a> #382
+  </p>
+
+  <p>
+    <strong>Education:</strong><br>
+    Ph.D., UC San Diego, 2025, advised by <a href="https://cseweb.ucsd.edu/~trosing/">Prof. Tajana Šimunić Rosing</a><br>
+    B.S., Peking University, China, 2018
+  </p>
+
+  <p>
+    <strong>Awards:</strong><br>
+    <a href="https://mlcommons.org/2024/06/2024-mlc-rising-stars/">ML&Systems Rising Star</a>, 2024<br>
+    <a href="https://risingstars.linklab.virginia.edu/2023/participants.html">CPS Rising Star</a>, 2023<br>
+    <a href="https://risingstars.utexas.edu/participants">EECS Rising Star</a>, 2022
+  </p>
+
+  <!--<p>
+    <strong>More Information:</strong><br>
+    
+    For more details, see my <a href="./docs/cv/cv_xfyu.pdf">CV</a>.
+  </p>-->
+
+  <p>
+    <strong>More Information:</strong>
+    <a href="./docs/cv/cv_xfyu.pdf" title="CV/Resume">Download CV</i></a> <br>
+    <a href="https://github.com/Orienfish" title="GitHub"><i class="fab fa-github-square fa-2x"></i></a>
+    <a href="https://scholar.google.com/citations?hl=en&user=HVMRUWoAAAAJ" title="Google Scholar"><i class="ai ai-google-scholar-square ai-2x"></i></a>
+    <a href="https://www.linkedin.com/in/xiaofan-yu-6bb1bb140/" title="LinkedIn"><i class="fab fa-linkedin fa-2x"></i></a>
+  </p>
+
+  </div> <!-- col-md-8 -->
+</div> <!-- row -->
+
+<hr> <!-- separate line -->
+
+<!-- -->
+<!-- Research Interests -->
+<!-- -->
+<div class="row">
+<div class="col-md-12">
+<h3> Research Interests </h3>
+<p>
+  My research interests are in embedded systems and edge computing. My work mainly focuses on (1) designing on-device AI for edge computing in real-world deployments, (2) building embedded systems for new applications and needs, and (3) advancing next-generation edge intelligence with neuromorphic computing. I am excited about all aspects in building intelligent and autonomous embedded systems.
+</p>
+
+<p>
+Much of my work is driven by collaborations with various academia and industry researchers (<a href="./collaboration.html">full collaboration list</a>).<br>
+</p>
+<p>
+  <i><font color="red">I am actively recruiting highly motivated Ph.D. students and Research Assistants starting Spring 2026 or Fall 2026! For more information, <a href="docs/student_recruiting.pdf">click here</a>. For Fall 2026 Ph.D. opportunities, please apply to the <a href="https://graduatedivision.ucmerced.edu/content/electrical-engineering-and-computer-science-ms-phd">UC Merced EECS graduate program</a> and indicate your interest in working with me in your application. </font></i> <br>
+</p>
+<!--<p>
+  The following manuscript published in IPSN'23 gives an overview of my Ph.D. research: <br> <a href="./docs/ipsn2023/yu2023intelligence.pdf">PhD Forum Abstract: Intelligence beyond the Edge in IoT</a> (<font color="red">Best PhD Forum Presentation Award</font>).
+</p>-->
+</div> <!-- col-md-12 -->
+</div> <!-- row -->
+
+<hr> <!-- separate line -->
+
+
+<!-- -->
+<!-- Publications -->
+<!-- -->
+
+<div class="row">
+<div class="col-md-12">
+
+<div class="publications-header">
+<h3> Selected Publications </h3>
+<!--<h5> Preprints </h5>-->
+</div>
+
+For the full publication list, see <a href="../../publications.html">YuCCA Lab's publication</a> or <a href="https://scholar.google.com/citations?hl=en&user=HVMRUWoAAAAJ">google scholar</a>.
+
+<div id="selected" style="display: block;">
+  <!-- Selected publications list here -->
+  <div class="pub-card">
+    <div class="pub-tag" style="background: #0091B3; color: #ffffff;">IMWUT'25</div>
+    <div class="pub-content">
+      <h4 onclick="window.open('https://dl.acm.org/doi/10.1145/3749496', '_blank')">SensorChat: Answering Qualitative and Quantative Questions during Long-Term Multimodal Sensor Interactions</h4>
+      <div class="pub-authors"><strong>X. Yu</strong>, L. Hu, B. Reichman, D. Chu, R. Chandrupatla, X. Zhang, L. Heck, T. Rosing</div>
+      <div class="pub-venue">Proceedings of the ACM on Interactive, Mobile, Wearable and Ubiquitous Technologie (IMWUT), 2025</div>
+      <div class="pub-links-line">
+        <a href="https://github.com/Orienfish/SensorChat" target="_blank">Code</a>
+        <a href="../../slides/sensorchat_imwut25.pdf" target="_blank">Slides</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="pub-card">
+    <div class="pub-tag" style="background: #DAA900; color: #ffffff;">SenSys'25</div>
+    <div class="pub-content">
+      <h4 onclick="window.open('https://dl.acm.org/doi/abs/10.1145/3715014.3722074', '_blank')">SensorQA: A Question Answering Benchmark for Daily-Life Monitoring</h4>
+      <div class="pub-authors">B. Reichman<sup>*</sup>, <strong>X. Yu</strong><sup>*</sup>, L. Hu, J. Truxal, A. Jain, R. Chandrupatla, T. Rosing, L. Heck</div>
+      <div class="pub-venue">ACM Conference on Embedded Networked Sensor Systems (SenSys), 2025</div>
+      <div class="pub-links-line">
+        <a href="https://github.com/benjamin-reichman/SensorQA" target="_blank">Code</a>
+        <a href="../../slides/sensorqa_sensys25.pdf" target="_blank">Slides</a>
+        <!--<a href="https://arxiv.org/html/2501.04974v1" target="_blank">arXiv</a>-->
+      </div>
+    </div>
+  </div>
+
+  <div class="pub-card">
+    <div class="pub-tag" style="background: #FFBF3C; color: #002856;">IPSN'24</div>
+    <div class="pub-content">
+      <h4 onclick="window.open('https://ieeexplore.ieee.org/abstract/document/10577411?casa_token=AxUihDrlA3AAAAAA:HsHMvzIFFWKwoQboW23jyvM51Z4YvC_aApypKfVX9ee8_eJQ6Q-XqA15hgOOzq2RWikha5gZ', '_blank')">Lifelong Intelligence beyond the Edge using Hyperdimensional Computing</h4>
+      <div class="pub-authors"><strong>X. Yu</strong>, A. Thomas, I. Gomez Moreno, L. Gutierrez, T. Rosing</div>
+      <div class="pub-venue">ACM/IEEE International Conference on Information Processing in Sensor Networks (IPSN), 2024</div>
+      <div class="pub-links-line">
+        <a href="https://github.com/Orienfish/LifeHD" target="_blank">Code</a>
+        <a href="../../slides/lifehd_ipsn24.pdf" target="_blank">Slides</a>
+        <!--<a href="https://arxiv.org/html/2403.04759v1" target="_blank">arXiv</a>-->
+      </div>
+    </div>
+  </div>
+
+  <div class="pub-card">
+    <div class="pub-tag" style="background: #002856; color: #ffffff;">IoTDI'23</div>
+    <div class="pub-content">
+      <h4 onclick="window.open('https://dl.acm.org/doi/abs/10.1145/3576842.3582377', '_blank')">Async-HFL: Efficient and Robust Asynchronous Federated Learning in Hierarchical IoT Networks</h4>
+      <div class="pub-authors"><strong>X. Yu</strong>, L. Cherkasova, H. Vardhan, Q. Zhao, E. Ekaireb, X. Zhang, A. Mazumdar, T. Rosing</div>
+      <div class="pub-venue">ACM/IEEE International Conference on Internet of Things Design and Implementation (IoTDI), 2023</div>
+      <div class="pub-links-line">
+        <a href="https://github.com/Orienfish/Async-HFL" target="_blank">Code</a>
+        <a href="../../slides/asynchfl_iotdi23.pdf" target="_blank">Slides</a>
+        <!--<a href="https://arxiv.org/abs/2301.06646" target="_blank">arXiv</a>-->
+      </div>
+    </div>
+  </div>
+
+  <div class="pub-card">
+    <div class="pub-tag" style="background: #5B5B5B; color: #ffffff;">TCAD'20</div>
+    <div class="pub-content">
+      <h4 onclick="window.open('https://ieeexplore.ieee.org/abstract/document/9211489?casa_token=PS13sCE5ZCUAAAAA:u57PMkITZaVZ6W2-SEAJfL-M8PFqYQylmaQYZKfeIGYv192rpYUbgZcgS6PAmXmt28WBUhH2', '_blank')">Optimizing Sensor Deployment and Maintenance Cost for Large-Scale Environmental Monitoring</h4>
+      <div class="pub-authors"><strong>X. Yu</strong>, K. Ergun, L. Cherkasova, T. Rosing</div>
+      <div class="pub-venue">IEEE Transactions on Computer Aided Design of Integrated Circuits & Systems (TCAD), 2020</div>
+      <div class="pub-links-line">
+        <a href="https://github.com/Orienfish/AQI-deploy" target="_blank">Code</a>
+        <a href="../../slides/yu_tcad20.pdf" target="_blank">Slides</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<hr> <!-- separate line -->
+
+<!-- -->
+<!-- Teaching -->
+<!-- -->
+
+<div class="row">
+<div class="col-md-12">
+<h3> Teaching </h3>
+<ul>
+  <li>EE 60 (Spring 26), Digital System Design</li>
+</ul>
+</div>
+</div>
+
+<hr> <!-- separate line -->
+
+<div class="row">
+<div class="col-md-12">
+  <h3> Mentorship </h3>
+<h6> I have mentored approximately 40 students across HS, BS, MS, and PhD levels since 2020, including the following notable individuals:</h6>
+<ul>
+  <li> Ye Tian, PhD'29 at UCSD, <b>Publication:</b> <a href="https://arxiv.org/abs/2507.13737">MASS'25</a>, <a href="https://dl.acm.org/doi/full/10.1145/3724129">TIOT'25</a> </li>
+  <li> Louis Gutierrez, PhD student at UCSD &#8594; E3R Inc., <b>Publication:</b> <a href="https://ieeexplore.ieee.org/abstract/document/10577411?casa_token=AxUihDrlA3AAAAAA:HsHMvzIFFWKwoQboW23jyvM51Z4YvC_aApypKfVX9ee8_eJQ6Q-XqA15hgOOzq2RWikha5gZ">IPSN'24</a> </li>
+  <li> Alexander Redding, PhD'27 at UCSD, <b>Publication:</b> <a href="https://dl.acm.org/doi/abs/10.1145/3615991.3616404">MobiCom'23 workshop</a> </li>
+  <li> Danlin Jiang, MS'23 at UCSD &#8594; RF-Lambda, <b>Publication:</b> <a href="https://www.mdpi.com/1424-8220/24/3/1014">MDPI Sensors'24</a></li>
+  <li> Shengfan Hu, MS'24 at UCSD &#8594; Supermicro, <b>Publication:</b> <a href="https://dl.acm.org/doi/abs/10.1145/3615991.3616404">MobiCom'23 workshop</a>, <a href="https://ieeexplore.ieee.org/abstract/document/10546794?casa_token=uDqE-SUAPDUAAAAA:gM9Soa7e8n07HDFnrHJ2kikJbrlqb892z3UWD25gYZ8G0QSCdkgOeOpm2CduaaXhG2eU5DHj">DATE'24</a> </li>
+  <li> Run Wang, BS'26 at UCSD, <b>Publication:</b> <a href="https://dl.acm.org/doi/abs/10.1145/3666025.3699427?casa_token=RAR6ix3FKOkAAAAA:LkWTWjeo_ucXBWLZfyOGloWQZE43Bu1z6ZPCzmSn_NC2BYlBZqEmyOEpnNPwUFdFfMulCOWxeYg">SenSys'24 poster</a> </li>
+  <li> Rushil Chandrupatla, BS'26 at UCSD, <b>Publication:</b> <a href="https://dl.acm.org/doi/10.1145/3749496">IMWUT'25</a>, <a href="https://dl.acm.org/doi/abs/10.1145/3715014.3722074">SenSys'25</a> </li>
+  <li> Dylan Chu, BS'25 at UCSD, <b>Publication:</b> <a href="https://dl.acm.org/doi/10.1145/3749496">IMWUT'25</a> </li>
+  <li> Ivannia Gomez Moreno, BS'23 at CETYS University &#8594; MS'26 at TUM, <b>Publication:</b> <a href="https://ieeexplore.ieee.org/abstract/document/10473878?casa_token=vk0FqnZXCYYAAAAA:WLHek5Byt45FqYm0W_jL-fJAdp6IKFgw3L9yrfMFjDsfrh-7gr4P7XYOO_H_lwf674sFBRA8">ASP-DAC'24</a>, <a href="https://ieeexplore.ieee.org/abstract/document/10577411?casa_token=AxUihDrlA3AAAAAA:HsHMvzIFFWKwoQboW23jyvM51Z4YvC_aApypKfVX9ee8_eJQ6Q-XqA15hgOOzq2RWikha5gZ">IPSN'24</a></li>
+  <li> Quanling Zhao, BS'24 at UCSD &#8594; PhD'29 at UCSD, <b>Publication:</b> <a href="https://ojs.aaai.org/index.php/AAAI/article/view/34442">AAAI'25</a>, <a href="https://ieeexplore.ieee.org/abstract/document/10546794?casa_token=uDqE-SUAPDUAAAAA:gM9Soa7e8n07HDFnrHJ2kikJbrlqb892z3UWD25gYZ8G0QSCdkgOeOpm2CduaaXhG2eU5DHj">DATE'24</a>, <a href="https://dl.acm.org/doi/abs/10.1145/3495243.3558757">MobiCom'22 demo</a> </li>
+  <li> Jinhao Liu, BS'22 at UCSD &#8594; Whova, <b>Publication:</b> <a href="https://ieeexplore.ieee.org/abstract/document/9874640?casa_token=7yJXoa0sMncAAAAA:xj43DpDrQQVum_PIKUKl18PHHU7pri_RkFaiFm8xz69iQYVK1nDCPicaYnRC9NVZNGxp5NNh">SmartIoT'22</a></li>
+  <li> Emily Ekaireb, BS'22 at UCSD &#8594; MS'24 at UCSD, <b>Publication:</b> <a href="https://dl.acm.org/doi/abs/10.1145/3532577.3532591">WNS3'22</a></li>
+  <li> Xueyang Song, BS'21 at UCSD &#8594; MS'23 at Stanford, <b>Publication:</b> <a href="https://ieeexplore.ieee.org/abstract/document/9269122?casa_token=97OIlBaxEYAAAAAA:36TKGy2uXUtzkyerjcwx37CEM-rLwgwCmTDdBvlc2qqVz3cMkUmhi4qSvkNDjLd7gxfiRDL4">CNSM'20</a>, <a href="https://ieeexplore.ieee.org/abstract/document/9896167?casa_token=zlZMfDgQGM4AAAAA:r8mrwbazLqR0mnOPQGj0gUjWlp4dA_OCLjX4fqfNLmDecmeTe8ABsWARS24uYWFuT6HfNk5T">TNSM'22</a></li>
+</ul>
+<h6>I also served as a Mentor in the following programs:</h6>
+<ul>
+  <li> <a href="https://sites.google.com/ucsd.edu/ersp/home">Early Research Scholarship Program (ERSP)</a> at UCSD
+  <ul>
+    <li> 2022-2023: Jennifer Tanurdjaja (BS), Aammya Sapra (BS), Duanhui Li (BS), Jezebel Yangari (BS) <br>
+    <b>Project:</b> <a href="./docs/ersp2022/ersp2022.pdf"> Lightweight Hyperdimensional Computing (HDC) Algorithm for Microcontrollers</a> <br>
+    <li> 2021-2022: Quanling Zhao (BS), Kai Lee (BS), Jeffrey Liu (BS), Muhammad Huzaifa (BS) <br>
+    <b>Project:</b> <a href="./docs/ersp2021/ersp2021.pdf"> Hyperdimensional Computing on IoT Devices</a> <br>
+    <b>Publication:</b> <a href="https://dl.acm.org/doi/abs/10.1145/3495243.3558757">MobiCom'22 demo</a> </li>
+  </ul>
+  <li> <a href="http://resilientmaterials.ucsd.edu/ENLACE">ENLACE Summer Research Program</a> at UCSD
+  <ul>
+    <li> 2024: Audrick Bolaños Linares (BS), Cesar Daniel Ortiz Aguilera (BS), Diego Muñiz De las Casas (HS), Marena Schiess (HS)<br>
+    <b>Project:</b> <a href="./docs/enlace2024/enlace2024.pdf">Human Activity Data Collection, Analysis and LLM-based Zero Shot Reasoning</a> </li>
+    <li> 2022: Paul Verdugo (BS), Enya Solis (BS), Valeria Leal (HS), Mariana Flores (HS)<br>
+    <b>Project:</b> <a href="./docs/enlace2022/enlace2022.pdf"> Smart Elderly Monitoring with Mobile Robots</a> </li>
+  </ul>
+</ul>
+</div> <!-- col-md-12 -->
+</div> <!-- row -->
+
+<hr> <!-- separate line -->
+
+<div class="row">
+<div class="col-md-12">
+<h3> Miscellaneous </h3>
+Since 2021, I have been organizing paper reading groups to help students in:
+<ul>
+  <li> reading papers accurately and efficiently, </li>
+  <li> designing and conducting research schedules, </li>
+  <li> discussing research effectively with other people. </li>
+</ul>
+Throughout this process, I have found that using a <a href="https://github.com/UCSD-SEELab/iot-hd-reading-group/blob/main/template.md">template I created</a> is very helpful. You can explore a repository of all the papers we have reviewed <a href="https://github.com/UCSD-SEELab/iot-hd-reading-group">here</a>.
+</div> <!-- col-md-12 -->
+</div> <!-- row -->
+
+<hr> <!-- separate line -->
+
+<!-- -->
+<!-- End -->
+<!-- -->
+<footer>
+<p><small>
+<!-- start footer; modify this part -->
+  COPYRIGHT @ Xiaofan Yu 2018-2025
+<!-- end of  footer; modify this part -->
+</small></p>
+</footer>
+
+<!-- END -->
+</div>
+</div>
+
+<script src="./js/scripts.js"></script>
+</body>
+</html>
+

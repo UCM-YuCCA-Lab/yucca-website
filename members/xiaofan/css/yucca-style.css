@@ -1,0 +1,176 @@
+/* YuCCA Lab Style Adaptation for Xiaofan Yu's Personal Website */
+/* This stylesheet adapts the personal website to match the YuCCA Lab branding */
+
+/* Import UC Merced Colors - Brighter scheme */
+:root {
+    --uc-merced-blue: #002856;
+    --uc-merced-sky-blue: #0091B3;
+    --uc-merced-gold: #DAA900;
+    --uc-merced-light-gray: #EFEFEF;
+    --uc-merced-border-gray: #E5E5E5;
+    --uc-merced-text-gray: #333;
+}
+
+/* Global Link Styling - Bright blue */
+a {
+    color: #027bff;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+a:hover {
+    color: #000000;
+    text-decoration: underline;
+}
+
+/* Headers - Brighter colors */
+h3 {
+    color: #027bff;
+    font-size: 27px;
+    border-bottom: none;
+    padding-bottom: 0.5rem;
+    font-weight: 700;
+}
+
+h5 {
+    color: #002856;
+    font-size: 22px;
+    margin: 2rem 0 1rem;
+    font-weight: 700;
+}
+
+h6 {
+    font-size: 17px;
+    color: #333;
+    font-weight: 700;
+}
+
+/* Horizontal rules */
+hr {
+    border: 0;
+    border-top: 2px solid #E5E5E5;
+    margin: 2rem 0;
+}
+
+/* Container styling */
+.container-limited {
+    max-width: 1000px; /* Match YuCCA Lab container width */
+    margin: 30px auto 0;
+    padding: 0 2rem; /* Match YuCCA Lab padding */
+}
+
+/* Button styling */
+button {
+    background: none;
+    border: none;
+    padding: 0;
+    margin-right: 10px;
+    color: #333;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+button:hover {
+    color: #027bff;
+    text-decoration: underline;
+}
+
+button.selected {
+    color: #027bff;
+    text-decoration: underline;
+    font-weight: 600;
+}
+
+button:focus {
+    outline: none;
+}
+
+/* Maintain button separator */
+button::after {
+    content: "/";
+    margin-left: 10px;
+    color: #333;
+}
+
+button:last-child::after {
+    content: "";
+}
+
+.topics-buttons button {
+    background: none;
+    border: none;
+    padding: 0;
+    margin-right: 10px;
+    color: #333;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.topics-buttons button.selected {
+    color: #027bff;
+    text-decoration: underline;
+    font-weight: 600;
+}
+
+.topics-buttons button:hover {
+    color: #027bff;
+}
+
+/* List styling */
+li {
+    font-size: 16px;
+    margin-bottom: 8px;
+    margin-top: 8px;
+    line-height: 1.6;
+}
+
+/* Awards in red to match main website */
+font[color="red"] {
+    color: darkred !important;
+}
+
+/* Footer styling - no border on top */
+footer {
+    margin-top: 4rem;
+    padding: 2rem 0;
+    border-top: none;
+    color: #333;
+}
+
+/* Photo styling */
+img {
+    border-radius: 8px; /* Add rounded corners like YuCCA Lab */
+}
+
+/* Social media icons */
+.fab, .ai {
+    color: #027bff;
+    transition: all 0.3s;
+}
+
+.fab:hover, .ai:hover {
+    color: #002856;
+}
+
+/* Ensure proper spacing */
+p {
+    margin-bottom: 1rem;
+}
+
+/* Bold text styling */
+strong, b {
+    font-weight: 700;
+    color: #000000;
+}
+
+/* List items */
+ul li {
+    color: #333;
+}
+
+/* Regular paragraph text */
+p {
+    color: #333;
+}

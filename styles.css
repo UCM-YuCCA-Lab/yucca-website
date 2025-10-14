@@ -228,25 +228,22 @@ h3 {
     line-height: 1.3;
 }
 
-.pub-venue-line {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    flex-wrap: wrap;
-    font-size: 0.9rem;
-}
-
 .pub-venue {
     color: #5B5B5B;
     font-style: italic;
+    font-size: 0.9rem;
+    margin-bottom: 0.15rem;
 }
 
-.pub-links {
+.pub-links-line {
     display: flex;
+    align-items: center;
     gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-top: 0.25rem;
 }
 
-.pub-links a {
+.pub-links-line a {
     color: #0091B3;
     text-decoration: none;
     font-size: 0.85rem;
@@ -256,9 +253,15 @@ h3 {
     border: 1px solid #E5E5E5;
 }
 
-.pub-links a:hover {
+.pub-links-line a:hover {
     background: #EFEFEF;
     border-color: #0091B3;
+}
+
+.pub-award {
+    color: red;
+    font-size: 0.85rem;
+    font-weight: 600;
 }
 
 /* Large member cards - for PI and PhD students (65% width) */
