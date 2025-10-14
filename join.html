@@ -87,24 +87,40 @@
 
     <script>
         // Rotate header background images
-        const headerImages = [
-            'figures/sciconsnowydamcropped.png',
-            'figures/yosemite.jpg'
-        ];
+        let headerImages = [];
         let currentImageIndex = 0;
+
+        // Load images list from JSON file
+        async function loadHeaderImages() {
+            try {
+                const response = await fetch('figures/images.json');
+                if (!response.ok) {
+                    throw new Error('Could not load images.json');
+                }
+                const imageList = await response.json();
+                // Prepend the figures folder path to each image
+                headerImages = imageList.map(img => `figures/${img}`);
+
+                // Initialize background rotation
+                if (headerImages.length > 0) {
+                    initializeHeaderBackground();
+                }
+            } catch (error) {
+                console.error('Error loading header images:', error);
+            }
+        }
 
         function rotateHeaderBackground() {
             const header = document.querySelector('header');
-            if (header) {
+            if (header && headerImages.length > 0) {
                 currentImageIndex = (currentImageIndex + 1) % headerImages.length;
                 header.style.setProperty('--header-bg-image', `url('${headerImages[currentImageIndex]}')`);
             }
         }
 
-        // Set initial background image
-        window.addEventListener('load', function() {
+        function initializeHeaderBackground() {
             const header = document.querySelector('header');
-            if (header) {
+            if (header && headerImages.length > 0) {
                 // Create a style element to add CSS variable support
                 const style = document.createElement('style');
                 style.textContent = `
@@ -114,11 +130,17 @@
                 `;
                 document.head.appendChild(style);
                 header.style.setProperty('--header-bg-image', `url('${headerImages[0]}')`);
-            }
-        });
 
-        // Rotate background every 2 minutes (120000 milliseconds)
-        setInterval(rotateHeaderBackground, 120000);
+                // Start rotation if there are multiple images
+                if (headerImages.length > 1) {
+                    // Rotate background every 1 minute (60000 milliseconds)
+                    setInterval(rotateHeaderBackground, 60000);
+                }
+            }
+        }
+
+        // Load images when page loads
+        window.addEventListener('load', loadHeaderImages);
     </script>
 </body>
 </html>
