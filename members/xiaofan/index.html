@@ -50,6 +50,9 @@ strong {
 
 h3 {
   font-size: 27px;
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-weight: 600;
 }
 
 h5 {
@@ -62,22 +65,31 @@ h6 {
 
 p {
   font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 12px;
 }
 
 li {
   font-size: 16px;
-  margin-bottom: 8px;
-  margin-top: 8px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  line-height: 1.6;
+}
+
+ul {
+  margin-bottom: 16px;
 }
 
 hr {
-    padding: 3px;
-    margin: 0px;
+    padding: 0;
+    margin: 20px 0;
+    border: 0;
+    border-top: 1px solid #e0e0e0;
 }
 
 .container-limited {
   max-width: 900px; /* Set the maximum width */
-  margin: 30px auto 0; /* Adds 50px space on top */
+  margin: 30px auto 60px; /* Adds 30px space on top, 60px on bottom */
   padding: 0 15px;  /* Add padding for small screens */
 }
 
@@ -151,17 +163,19 @@ button:last-child::after {
 /* Publication card styles */
 .pub-card {
   display: flex;
-  gap: 12px;
-  margin-bottom: 16px;
-  padding: 12px;
+  gap: 15px;
+  margin-bottom: 20px;
+  padding: 16px;
   border: 1px solid #e0e0e0;
-  border-radius: 6px;
-  background: #fff;
-  transition: box-shadow 0.2s;
+  border-radius: 8px;
+  background: #fafafa;
+  transition: all 0.2s ease;
 }
 
 .pub-card:hover {
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  background: #fff;
+  border-color: #d0d0d0;
 }
 
 .pub-tag {
@@ -234,6 +248,44 @@ button:last-child::after {
   font-weight: 600;
 }
 
+/* Additional section spacing */
+.research-summary {
+  margin-bottom: 20px;
+}
+
+.row {
+  margin-bottom: 20px;
+}
+
+/* Improve readability for specific sections */
+h6 {
+  margin-top: 16px;
+  margin-bottom: 12px;
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+/* Better link styling */
+a {
+  color: #0091B3;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: #006d8a;
+  text-decoration: underline;
+}
+
+/* Recruitment banner styling */
+.recruitment-banner {
+  background-color: #fff3cd;
+  border: 1px solid #ffc107;
+  border-radius: 6px;
+  padding: 16px;
+  margin: 20px 0;
+}
+
 </style>
 
 </head>
@@ -293,12 +345,14 @@ button:last-child::after {
   </div> <!-- col-md-8 -->
 </div> <!-- row -->
 
-<p>
-  <strong style="color: red;">
-    I am actively recruiting highly motivated Ph.D. students and Research Assistants! 
-    <a href="../../join.html">Learn more here</a>.
-  </strong>
-</p>
+<div class="recruitment-banner">
+  <p style="margin: 0;">
+    <strong style="color: #856404;">
+      I am actively recruiting highly motivated Ph.D. students and Research Assistants!
+      <a href="../../join.html" style="color: #856404; text-decoration: underline;">Learn more here</a>.
+    </strong>
+  </p>
+</div>
 
 <hr> <!-- separate line -->
 
