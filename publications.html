@@ -19,7 +19,7 @@
         <ul>
             <li><a href="index.html">Home</a></li>
             <li><a href="publications.html" class="active">Publications</a></li>
-            <li><a href="students.html">Students</a></li>
+            <li><a href="members.html">Members</a></li>
             <li><a href="join.html">Join Us</a></li>
         </ul>
     </nav>
@@ -214,8 +214,8 @@
                 'journal': { title: 'Journal Publications', entries: [] },
                 'conference': { title: 'Conference Publications', entries: [] },
                 'workshop': { title: 'Workshop Publications', entries: [] },
-                'poster': { title: 'Posters', entries: [] },
-                'thesis': { title: 'PhD Thesis', entries: [] }
+                'poster': { title: 'Posters, Demos and Other Publications', entries: [] },
+                'thesis': { title: 'PhD Theses', entries: [] }
             };
             
             // Categorize entries based on keywords field
@@ -267,6 +267,7 @@
                         const url = entry.url || '#';
                         const code = entry.code || '';
                         const slides = entry.slides || '';
+                        const award = entry.award || '';
 
                         const tag = extractConferenceTag(entry);
                         const color = getConferenceColor(tag);
@@ -297,6 +298,7 @@
                                             </div>
                                         </div>
                                     ` : ''}
+                                    ${award ? `<div class="pub-award" style="color: red;">${award}</div>` : ''}
                                 </div>
                             </div>
                         `;
@@ -330,6 +332,40 @@
 
         // Load publications when page loads
         window.addEventListener('load', loadPublications);
+
+        // Rotate header background images
+        const headerImages = [
+            'figures/sciconsnowydamcropped.png',
+            'figures/yosemite.jpg'
+        ];
+        let currentImageIndex = 0;
+
+        function rotateHeaderBackground() {
+            const header = document.querySelector('header');
+            if (header) {
+                currentImageIndex = (currentImageIndex + 1) % headerImages.length;
+                header.style.setProperty('--header-bg-image', `url('${headerImages[currentImageIndex]}')`);
+            }
+        }
+
+        // Set initial background image
+        window.addEventListener('load', function() {
+            const header = document.querySelector('header');
+            if (header) {
+                // Create a style element to add CSS variable support
+                const style = document.createElement('style');
+                style.textContent = `
+                    header::before {
+                        background-image: var(--header-bg-image, url('${headerImages[0]}'));
+                    }
+                `;
+                document.head.appendChild(style);
+                header.style.setProperty('--header-bg-image', `url('${headerImages[0]}')`);
+            }
+        });
+
+        // Rotate background every 2 minutes (120000 milliseconds)
+        setInterval(rotateHeaderBackground, 120000);
     </script>
 </body>
 </html>

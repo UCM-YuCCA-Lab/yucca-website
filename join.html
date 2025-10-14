@@ -19,7 +19,7 @@
         <ul>
             <li><a href="index.html">Home</a></li>
             <li><a href="publications.html">Publications</a></li>
-            <li><a href="students.html">Students</a></li>
+            <li><a href="members.html">Members</a></li>
             <li><a href="join.html" class="active">Join Us</a></li>
         </ul>
     </nav>
@@ -84,5 +84,41 @@
         <p>&copy; 2024 YuCCA Lab - University of California, Merced</p>
         <p style="margin-top: 0.5rem; font-size: 0.9rem;">Yu's Cognitive Computing and Automation Lab</p>
     </footer>
+
+    <script>
+        // Rotate header background images
+        const headerImages = [
+            'figures/sciconsnowydamcropped.png',
+            'figures/yosemite.jpg'
+        ];
+        let currentImageIndex = 0;
+
+        function rotateHeaderBackground() {
+            const header = document.querySelector('header');
+            if (header) {
+                currentImageIndex = (currentImageIndex + 1) % headerImages.length;
+                header.style.setProperty('--header-bg-image', `url('${headerImages[currentImageIndex]}')`);
+            }
+        }
+
+        // Set initial background image
+        window.addEventListener('load', function() {
+            const header = document.querySelector('header');
+            if (header) {
+                // Create a style element to add CSS variable support
+                const style = document.createElement('style');
+                style.textContent = `
+                    header::before {
+                        background-image: var(--header-bg-image, url('${headerImages[0]}'));
+                    }
+                `;
+                document.head.appendChild(style);
+                header.style.setProperty('--header-bg-image', `url('${headerImages[0]}')`);
+            }
+        });
+
+        // Rotate background every 2 minutes (120000 milliseconds)
+        setInterval(rotateHeaderBackground, 120000);
+    </script>
 </body>
 </html>
