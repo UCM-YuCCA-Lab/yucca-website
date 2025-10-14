@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YuCCA Lab - Students</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>YuCCA Lab</h1>
+            <p class="subtitle">Yu's Cognitive Computing and Automation Lab</p>
+            <p class="subtitle">University of California, Merced</p>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="publications.html">Publications</a></li>
+            <li><a href="students.html" class="active">Students</a></li>
+            <li><a href="join.html">Join Us</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <h2>Lab Members</h2>
+        <p style="margin-bottom: 1rem;">Our lab is composed of talented and dedicated researchers working on cutting-edge problems in cognitive computing and automation.</p>
+        
+        <h3>Principal Investigator</h3>
+        <div class="pi-card">
+            <div class="pi-img">👤</div>
+            <div class="pi-content">
+                <div class="pi-name">Dr. [Your Name]</div>
+                <div class="pi-title">Assistant Professor, Computer Science and Engineering</div>
+                <div class="pi-bio">Dr. [Your Name] leads the YuCCA Lab at UC Merced, focusing on cognitive computing and intelligent automation systems. [Add your brief bio here]</div>
+                <div class="pi-contact">
+                    Email: <a href="mailto:your.email@ucmerced.edu">your.email@ucmerced.edu</a> | 
+                    Office: [Building & Room Number]
+                </div>
+            </div>
+        </div>
+        
+        <h3>PhD Students</h3>
+        <div class="students-grid">
+            <div class="student-card">
+                <div class="student-img">👤</div>
+                <div class="student-name">Sample PhD Student</div>
+                <div class="student-title">PhD Researcher</div>
+                <div class="student-year">Started: 2022</div>
+                <div class="student-interests">Interests: Reinforcement Learning, Robotics</div>
+            </div>
+        </div>
+
+        <h3>Master's Students</h3>
+        <div class="students-grid">
+            <div class="student-card">
+                <div class="student-img">👤</div>
+                <div class="student-name">Sample MS Student</div>
+                <div class="student-title">MS Researcher</div>
+                <div class="student-year">Started: 2023</div>
+                <div class="student-interests">Interests: Computer Vision, Deep Learning</div>
+            </div>
+        </div>
+
+        <h3>Undergraduate Researchers</h3>
+        <div class="students-grid">
+            <div class="student-card">
+                <div class="student-img">👤</div>
+                <div class="student-name">Sample Undergrad</div>
+                <div class="student-title">Undergrad Researcher</div>
+                <div class="student-year">Started: 2024</div>
+                <div class="student-interests">Interests: Machine Learning, NLP</div>
+            </div>
+        </div>
+
+        <div class="section" style="margin-top: 3rem;">
+            <h3>Adding Your Profile</h3>
+            <p>Current and prospective lab members can add their profiles by following these steps:</p>
+            <ol>
+                <li>Fork the lab website GitHub repository</li>
+                <li>Create a new folder in the <code>students/</code> directory with your name</li>
+                <li>Add your profile photo (named <code>photo.jpg</code>) and create an <code>info.json</code> file with your information:
+                    <pre>{
+  "name": "Your Name",
+  "title": "PhD Researcher",
+  "start_year": 2024,
+  "interests": "Your research interests",
+  "photo": "photo.jpg"
+}</pre>
+                </li>
+                <li>Submit a pull request for review</li>
+            </ol>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 YuCCA Lab - University of California, Merced</p>
+        <p style="margin-top: 0.5rem; font-size: 0.9rem;">Yu's Cognitive Computing and Automation Lab</p>
+    </footer>
+</body>
+</html>
