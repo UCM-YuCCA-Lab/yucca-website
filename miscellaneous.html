@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YuCCA Lab - Miscellaneous</title>
+    <link rel="icon" type="image/png" href="figures/yucca_small.png">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>YuCCA Lab</h1>
+            <p class="subtitle">Yu's Cognitive Computing and Automation Lab</p>
+            <p class="subtitle">University of California, Merced</p>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="publications.html">Publications</a></li>
+            <li><a href="members.html">Members</a></li>
+            <li><a href="join.html">Join Us</a></li>
+            <li><a href="miscellaneous.html" class="active">Miscellaneous</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <h2>Miscellaneous</h2>
+
+        <div class="section">
+            <h3>The Name of Yucca</h3>
+            <p>The name “Yucca” was suggested by our friend <a href="https://www.grasp.upenn.edu/people/katherine-mao/">Katie Mao</a>.</p>
+
+            <p>Yucca refers to a diverse group of plants native to the Americas, known for their tough, sword-like leaves and tall clusters of white or cream-colored flowers. These resilient plants thrive in environments ranging from arid deserts to open grasslands. You can spot yucca in places like Joshua Tree National Park (where Joshua Trees are actually a type of yucca), White Sands National Park, and even—surprisingly—at your local grocery store!</p>
+
+            <img src="figures/yucca_pic.png" alt="Yucca Pic" style="max-width: 800px; display: block; margin: 1rem 0;">
+        </div>
+
+        <div class="section">
+            <h3>Outdoor Spirit</h3>
+            <p><p>Our lab loves the outdoors! Xiaofan is organizing the EE Fall 2025 hiking trip. Stay tuned for more details!</p></p>
+
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 YuCCA Lab - University of California, Merced</p>
+        <p style="margin-top: 0.5rem; font-size: 0.9rem;">Yu's Cognitive Computing and Automation Lab</p>
+    </footer>
+
+    <script>
+        // Rotate header background images
+        let headerImages = [];
+        let currentImageIndex = 0;
+
+        // Load images list from JSON file
+        async function loadHeaderImages() {
+            try {
+                const response = await fetch('figures/images.json');
+                if (!response.ok) {
+                    throw new Error('Could not load images.json');
+                }
+                const imageList = await response.json();
+                // Prepend the figures folder path to each image
+                headerImages = imageList.map(img => `figures/${img}`);
+
+                // Initialize background rotation
+                if (headerImages.length > 0) {
+                    initializeHeaderBackground();
+                }
+            } catch (error) {
+                console.error('Error loading header images:', error);
+            }
+        }
+
+        function rotateHeaderBackground() {
+            const header = document.querySelector('header');
+            if (header && headerImages.length > 0) {
+                currentImageIndex = (currentImageIndex + 1) % headerImages.length;
+                header.style.setProperty('--header-bg-image', `url('${headerImages[currentImageIndex]}')`);
+            }
+        }
+
+        function initializeHeaderBackground() {
+            const header = document.querySelector('header');
+            if (header && headerImages.length > 0) {
+                // Create a style element to add CSS variable support
+                const style = document.createElement('style');
+                style.textContent = `
+                    header::before {
+                        background-image: var(--header-bg-image, url('${headerImages[0]}'));
+                    }
+                `;
+                document.head.appendChild(style);
+                header.style.setProperty('--header-bg-image', `url('${headerImages[0]}')`);
+
+                // Start rotation if there are multiple images
+                if (headerImages.length > 1) {
+                    // Rotate background every 1 minute (60000 milliseconds)
+                    setInterval(rotateHeaderBackground, 60000);
+                }
+            }
+        }
+
+        // Load images when page loads
+        window.addEventListener('load', loadHeaderImages);
+    </script>
+</body>
+</html>
