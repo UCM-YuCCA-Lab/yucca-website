@@ -380,7 +380,7 @@ footer {
 }
 
 .news-item, .funding-item {
-    padding: 1rem 0;
+    padding: 0.5rem 0 1rem 0;
     border-bottom: 1px solid #E5E5E5;
 }
 
@@ -420,6 +420,24 @@ ol {
     margin-left: 2rem;
     margin-top: 1rem;
     line-height: 2;
+}
+
+ul {
+    margin-left: 1.5rem;
+    margin-top: 0.5rem;
+    line-height: 1.2;
+    list-style-position: outside;
+}
+
+.news-item ul {
+    margin-left: 0;
+    padding-left: 0;
+    list-style-position: inside;
+}
+
+.news-item li {
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
 }
 
 @media (max-width: 768px) {

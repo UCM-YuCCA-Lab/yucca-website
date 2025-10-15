@@ -201,114 +201,81 @@
             return colors[Math.abs(hash) % colors.length];
         }
 
-        // Render publications grouped by keyword
+        // Render publications grouped by year
         function renderPublications(entries) {
             const container = document.getElementById('publications-list');
-            
+
             if (entries.length === 0) {
                 container.innerHTML = '<p class="placeholder">No publications found in pubs.bib file.</p>';
                 return;
             }
-            
-            // Group publications by keyword
-            const categories = {
-                'journal': { title: 'Journal Publications', entries: [] },
-                'conference': { title: 'Conference Publications', entries: [] },
-                'workshop': { title: 'Workshop Publications', entries: [] },
-                'poster': { title: 'Posters, Demos and Other Publications', entries: [] },
-                'thesis': { title: 'PhD Theses', entries: [] }
-            };
-            
-            // Categorize entries based on keywords field
+
+            // Group publications by year
+            const yearGroups = {};
+
             entries.forEach(entry => {
-                const keywords = (entry.keywords || '').toLowerCase();
-                
-                if (keywords.includes('journal')) {
-                    categories.journal.entries.push(entry);
-                } else if (keywords.includes('conference')) {
-                    categories.conference.entries.push(entry);
-                } else if (keywords.includes('workshop')) {
-                    categories.workshop.entries.push(entry);
-                } else if (keywords.includes('poster')) {
-                    categories.poster.entries.push(entry);
-                } else if (keywords.includes('thesis')) {
-                    categories.thesis.entries.push(entry);
-                } else {
-                    // Default to conference if no keyword
-                    categories.conference.entries.push(entry);
+                const year = entry.year || 'Unknown';
+                if (!yearGroups[year]) {
+                    yearGroups[year] = [];
                 }
+                yearGroups[year].push(entry);
             });
-            
-            // Sort entries within each category by year (descending)
-            Object.values(categories).forEach(category => {
-                category.entries.sort((a, b) => {
-                    const yearA = parseInt(a.year) || 0;
-                    const yearB = parseInt(b.year) || 0;
-                    return yearB - yearA;
-                });
+
+            // Sort years in descending order (most recent first)
+            const sortedYears = Object.keys(yearGroups).sort((a, b) => {
+                if (a === 'Unknown') return 1;
+                if (b === 'Unknown') return -1;
+                return parseInt(b) - parseInt(a);
             });
-            
+
             // Render HTML
             let html = '';
-            
-            // Render each category in order
-            const categoryOrder = ['journal', 'conference', 'workshop', 'poster', 'thesis'];
-            
-            categoryOrder.forEach(catKey => {
-                const category = categories[catKey];
-                
-                if (category.entries.length > 0) {
-                    html += `<h3>${category.title}</h3>`;
-                    
-                    category.entries.forEach(entry => {
-                        const title = entry.title || 'Untitled';
-                        const authors = entry.author ? formatAuthors(entry.author) : '';
-                        const venue = entry.journal || entry.booktitle || '';
-                        const year = entry.year || '';
-                        const url = entry.url || '#';
-                        const code = entry.code || '';
-                        const slides = entry.slides || '';
-                        const award = entry.award || '';
 
-                        const tag = extractConferenceTag(entry);
-                        const color = getConferenceColor(tag);
-                        const textColor = (color === '#FFBF3C') ? '#002856' : '#ffffff';
+            sortedYears.forEach(year => {
+                const yearEntries = yearGroups[year];
 
-                        // Build venue line only if there's venue or year
-                        let venueText = '';
-                        if (venue && year) {
-                            venueText = `${venue}, ${year}`;
-                        } else if (venue) {
-                            venueText = venue;
-                        } else if (year) {
-                            venueText = year;
-                        }
+                html += `<h3>${year}</h3>`;
 
-                        html += `
-                            <div class="pub-card">
-                                <div class="pub-tag" style="background: ${color}; color: ${textColor};">${tag}</div>
-                                <div class="pub-content">
-                                    <h4 onclick="window.open('${url}', '_blank')">${title}</h4>
-                                    ${authors ? `<div class="pub-authors">${authors}</div>` : ''}
-                                    ${venueText ? `<div class="pub-venue">${venueText}</div>` : ''}
-                                    ${code || slides || award ? `
-                                        <div class="pub-links-line">
-                                            ${code ? `<a href="${code}" target="_blank">Code</a>` : ''}
-                                            ${slides ? `<a href="${slides}" target="_blank">Slides</a>` : ''}
-                                            ${award ? `<span class="pub-award" style="color: red;">${award}</span>` : ''}
-                                        </div>
-                                    ` : ''}
-                                </div>
+                yearEntries.forEach(entry => {
+                    const title = entry.title || 'Untitled';
+                    const authors = entry.author ? formatAuthors(entry.author) : '';
+                    const venue = entry.journal || entry.booktitle || '';
+                    const url = entry.url || '#';
+                    const code = entry.code || '';
+                    const slides = entry.slides || '';
+                    const award = entry.award || '';
+
+                    const tag = extractConferenceTag(entry);
+                    const color = getConferenceColor(tag);
+                    const textColor = (color === '#FFBF3C') ? '#002856' : '#ffffff';
+
+                    // Build venue line (no need to include year since it's in the section heading)
+                    let venueText = venue || '';
+
+                    html += `
+                        <div class="pub-card">
+                            <div class="pub-tag" style="background: ${color}; color: ${textColor};">${tag}</div>
+                            <div class="pub-content">
+                                <h4 onclick="window.open('${url}', '_blank')">${title}</h4>
+                                ${authors ? `<div class="pub-authors">${authors}</div>` : ''}
+                                ${venueText ? `<div class="pub-venue">${venueText}</div>` : ''}
+                                ${code || slides || award ? `
+                                    <div class="pub-links-line">
+                                        ${code ? `<a href="${code}" target="_blank">Code</a>` : ''}
+                                        ${slides ? `<a href="${slides}" target="_blank">Slides</a>` : ''}
+                                        ${award ? `<span class="pub-award" style="color: red;">${award}</span>` : ''}
+                                    </div>
+                                ` : ''}
                             </div>
-                        `;
-                    });
-                }
+                        </div>
+                    `;
+                });
             });
-            
+
             if (html === '') {
                 html = '<p class="placeholder">No publications found in pubs.bib file.</p>';
             }
-            
+
             container.innerHTML = html;
         }
 
