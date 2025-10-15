@@ -105,6 +105,25 @@ a:hover {
   margin-bottom: 0px;
 }
 
+/* Project image styling for consistent alignment */
+.project-container {
+  display: flex;
+  align-items: flex-start;
+  margin: 15px 0;
+}
+
+.project-image {
+  width: 250px;
+  object-fit: cover;
+  object-position: center;
+  margin-right: 30px;
+  flex-shrink: 0;
+}
+
+.project-content {
+  flex: 1;
+}
+
 </style>
 
 </head>
@@ -155,7 +174,7 @@ a:hover {
 
   <p>
     <strong>More Information:</strong>
-    <a href="./docs/cv/cv_xfyu.pdf" title="CV/Resume">Download CV</i></a> <br>
+    <a href="./docs/cv/cv_xfyu.pdf" title="CV/Resume">My CV</a>, <a href="../../index.html">Group's Website</a> <br>
     <a href="https://github.com/Orienfish" title="GitHub"><i class="fab fa-github-square fa-2x"></i></a>
     <a href="https://scholar.google.com/citations?hl=en&user=HVMRUWoAAAAJ" title="Google Scholar"><i class="ai ai-google-scholar-square ai-2x"></i></a>
     <a href="https://www.linkedin.com/in/xiaofan-yu-6bb1bb140/" title="LinkedIn"><i class="fab fa-linkedin fa-2x"></i></a>
@@ -216,11 +235,11 @@ During my PhD, I was fortunate to work with the following research centers and f
 <h5>Robotics</h5>
 <ul>
   <li><strong>Prof. <a href="https://www.kumarrobotics.org/">Vijay Kumar</a></strong> (University of Pennsylvania)
-    <div style="display: flex; align-items: flex-start; margin: 15px 0;">
-    <img src="images/collaborations/drone-fl.png" alt="Drone federated learning" style="width:350px; height:150px; margin-right: 30px;">
-    <div>
+    <div class="project-container">
+    <img src="images/collaborations/drone-fl.png" alt="Drone federated learning" class="project-image">
+    <div class="project-content">
       <p><strong>Focus:</strong> Enabling adaptable and collaborative perception in multi-agent systems via federated learning.<br>
-      <strong>Approach:</strong> Dynamically learning models on multiple drones that predict future trajectories of all targets from camera images.<br>
+      <strong>Approach:</strong> Federatedly learned models on multiple drones for predicting future trajectories of all targets from camera images and planned the future trajectories of each drone.<br>
       <strong>Funding:</strong> <a href="https://tilos.ai/">TILOS</a> <br>
       <strong>Publications:</strong> <a href="https://www.arxiv.org/abs/2509.21523">arXiv'25</a>
       </p>
@@ -232,13 +251,13 @@ During my PhD, I was fortunate to work with the following research centers and f
 <h5>Natural Language Processing</h5>
 <ul>
   <li><strong>Prof. <a href="https://larryheck.github.io/">Larry Heck</a></strong> (Georgia Institute of Technology)
-    <div style="display: flex; align-items: flex-start; margin: 15px 0;">
-    <img src="images/collaborations/sensorqa.png" alt="SensorQA" style="width:350px; height:140px; margin-right: 30px;">
-    <div>
+    <div class="project-container">
+    <img src="images/collaborations/sensorqa.png" alt="SensorQA" class="project-image">
+    <div class="project-content">
       <p><strong>Focus:</strong> Enabling natural language interactions between humans and sensors.<br>
-      <strong>Contribution:</strong> Created the first comprehensive dataset for sensor question answering and developed a pioneering real-time interaction system addressing limitations in question/answer types and sensor time windows.<br>
+      <strong>Contribution:</strong> Created the first comprehensive dataset for sensor question answering and developed a pioneering real-time interaction system handling practical questions for long-term sensor data.<br>
       <strong>Funding:</strong> <a href="https://cocosys.ece.gatech.edu/">CoCoSys</a><br>
-      <strong>Publications:</strong> <a href="https://dl.acm.org/doi/10.1145/3749496">IMWUT'25</a>, <a href="https://dl.acm.org/doi/abs/10.1145/3715014.3722074">SenSys'25</a>, <a href="https://dl.acm.org/doi/abs/10.1145/3666025.3699396">SenSys'24</a> 
+      <strong>Publications:</strong> <a href="https://dl.acm.org/doi/10.1145/3749496">IMWUT'25</a>, <a href="https://dl.acm.org/doi/abs/10.1145/3715014.3722074">SenSys'25</a>, <a href="https://dl.acm.org/doi/abs/10.1145/3666025.3699396">SenSys'24</a>
       </p>
     </div>
     </div>
@@ -248,9 +267,9 @@ During my PhD, I was fortunate to work with the following research centers and f
 <h5>Machine Learning</h5>
 <ul>
   <li><strong>Prof. <a href="https://mazumdar.ucsd.edu/">Arya Mazumdar</a></strong> (UC San Diego)
-    <div style="display: flex; align-items: flex-start; margin: 15px 0;">
-    <img src="images/collaborations/fl.png" alt="Federated learning" style="width:350px; height:135px; margin-right: 30px;">
-    <div>
+    <div class="project-container">
+    <img src="images/collaborations/fl.png" alt="Federated learning" class="project-image">
+    <div class="project-content">
       <p><strong>Focus:</strong> Optimizing Federated Learning in IoT networks under data and network heterogeneities.<br>
       <strong>Approach:</strong> Designed theoretically sound and practical system solutions, tested on a real-world testbed with 40 clients built on Raspberry Pis and CPU clusters.<br>
       <strong>Funding:</strong> <a href="https://tilos.ai/">TILOS</a><br>
@@ -264,9 +283,9 @@ During my PhD, I was fortunate to work with the following research centers and f
 <h5>Computer Vision</h5>
 <ul>
   <li><strong>Prof. <a href="https://yunhuiguo.github.io/">Yunhui Guo</a></strong> (University of Texas at Dallas)
-    <div style="display: flex; align-items: flex-start; margin: 15px 0;">
-    <img src="images/collaborations/scale.png" alt="Lifelong learning" style="width:350px; height:140px; margin-right: 30px;">
-    <div>
+    <div class="project-container">
+    <img src="images/collaborations/scale.png" alt="Lifelong learning" class="project-image">
+    <div class="project-content">
       <p><strong>Focus:</strong> Designing lifelong (continual) learning algorithms for edge devices adapting to real-world distribution drifts.<br>
       <strong>Achievement:</strong> Developed new unsupervised lifelong learning algorithms for class-incremental streams, achieving up to 53.7% linear accuracy improvements over state-of-the-art methods.<br>
       <strong>Publications:</strong> <a href="https://openaccess.thecvf.com/content/WACV2024/html/Yu_Evolve_Enhancing_Unsupervised_Continual_Learning_With_Multiple_Experts_WACV_2024_paper.html">WACV'24</a>, <a href="https://openaccess.thecvf.com/content/CVPR2023W/CLVision/html/Yu_SCALE_Online_Self-Supervised_Lifelong_Learning_Without_Prior_Knowledge_CVPRW_2023_paper.html">CVPRW'23</a>, <a href="https://ieeexplore.ieee.org/abstract/document/9394236">MSN'20</a>
@@ -279,9 +298,9 @@ During my PhD, I was fortunate to work with the following research centers and f
 <h5>Industry Collaborations</h5>
 <ul>
   <li><strong><a href="https://www.intel.com/content/www/us/en/research/ai.html">Intel Labs</a></strong>
-    <div style="display: flex; align-items: flex-start; margin: 15px 0;">
-    <img src="images/collaborations/hd.png" alt="Hyperdimensional computing" style="width:350px; height:150px; margin-right: 30px;">
-    <div>
+    <div class="project-container">
+    <img src="images/collaborations/hd.png" alt="Hyperdimensional computing" class="project-image">
+    <div class="project-content">
       <p><strong>Focus:</strong> Designing Hyperdimensional Computing (HDC) algorithms for real-world challenges and applications.<br>
       <strong>Achievement:</strong> Achieved similar or better accuracy compared to state-of-the-art neural network baselines while improving energy efficiency by up to 34.3×.<br>
       <strong>Funding:</strong> <a href="https://new.nsf.gov/funding/opportunities/mlwins-nsfintel-partnership-machine-learning-wireless-networking/505687/nsf19-591/solicitation">MLWiNS</a><br>
@@ -291,9 +310,9 @@ During my PhD, I was fortunate to work with the following research centers and f
     </div>
   </li>
   <li><strong><a href="https://www.arm.com/resources/research">Arm Research</a></strong>
-    <div style="display: flex; align-items: flex-start; margin: 15px 0;">
-    <img src="images/collaborations/deployment.png" alt="IoT deployment" style="width:350px; height:150px; margin-right: 30px;">
-    <div>
+    <div class="project-container">
+    <img src="images/collaborations/deployment.png" alt="IoT deployment" class="project-image">
+    <div class="project-content">
       <p><strong>Focus:</strong> Optimizing long-term reliability of IoT networks via sensor deployment and network optimization.<br>
       <strong>Achievement:</strong> Developed strategies that save up to 40% of maintenance costs compared to existing deployment heuristics while maintaining the same sensing quality.<br>
       <strong>Publications:</strong> <a href="https://dl.acm.org/doi/abs/10.1145/3576842.3582377">IoTDI'23</a>, <a href="https://ieeexplore.ieee.org/abstract/document/9896167">TNSM'22</a>, <a href="https://ieeexplore.ieee.org/abstract/document/9615512">CNSM'21</a>, <a href="https://ieeexplore.ieee.org/abstract/document/9269122">CNSM'20</a>, <a href="https://ieeexplore.ieee.org/abstract/document/9211489">TCAD'20</a>, <a href="https://link.springer.com/chapter/10.1007/978-3-030-59615-6_5">ICIOT'20</a>
