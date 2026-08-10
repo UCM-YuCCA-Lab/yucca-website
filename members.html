@@ -234,6 +234,310 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 YuCCA Lab - University of California, Merced</p>
+        <p style="margin-top: 0.5rem; font-size: 0.9rem;">Yu's Cognitive Computing and Automation Lab</p>
+    </footer>
+
+    <script>
+        // Rotate header background images
+        let headerImages = [];
+        let currentImageIndex = 0;
+
+        // Load images list from JSON file
+        async function loadHeaderImages() {
+            try {
+                const response = await fetch('figures/images.json');
+                if (!response.ok) {
+                    throw new Error('Could not load images.json');
+                }
+                const imageList = await response.json();
+                // Prepend the figures folder path to each image
+                headerImages = imageList.map(img => `figures/${img}`);
+
+                // Initialize background rotation
+                if (headerImages.length > 0) {
+                    initializeHeaderBackground();
+                }
+            } catch (error) {
+                console.error('Error loading header images:', error);
+            }
+        }
+
+        function rotateHeaderBackground() {
+            const header = document.querySelector('header');
+            if (header && headerImages.length > 0) {
+                currentImageIndex = (currentImageIndex + 1) % headerImages.length;
+                header.style.setProperty('--header-bg-image', `url('${headerImages[currentImageIndex]}')`);
+            }
+        }
+
+        function initializeHeaderBackground() {
+            const header = document.querySelector('header');
+            if (header && headerImages.length > 0) {
+                // Create a style element to add CSS variable support
+                const style = document.createElement('style');
+                style.textContent = `
+                    header::before {
+                        background-image: var(--header-bg-image, url('${headerImages[0]}'));
+                    }
+                `;
+                document.head.appendChild(style);
+                header.style.setProperty('--header-bg-image', `url('${headerImages[0]}')`);
+
+                // Start rotation if there are multiple images
+                if (headerImages.length > 1) {
+                    // Rotate background every 1 minute (60000 milliseconds)
+                    setInterval(rotateHeaderBackground, 60000);
+                }
+            }
+        }
+
+        // Load images when page loads
+        window.addEventListener('load', loadHeaderImages);
+    </script>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YuCCA Lab - Members</title>
+    <link rel="icon" type="image/png" href="figures/yucca_small.png">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>YuCCA Lab</h1>
+            <p class="subtitle">Yu's Cognitive Computing and Automation Lab</p>
+            <p class="subtitle">University of California, Merced</p>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="publications.html">Publications</a></li>
+            <li><a href="members.html" class="active">Members</a></li>
+            <li><a href="join.html">Join Us</a></li>
+            <li><a href="miscellaneous.html">Miscellaneous</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <h2>Lab Members</h2>
+        <p style="margin-bottom: 1rem;">Our lab is composed of talented and dedicated researchers working on cutting-edge research problems!</p>
+        
+        <h3>Principal Investigator</h3>
+        <div class="member-card-large">
+            <div class="member-img">
+                <img src="members/xiaofan/images/me_ucsd2024.jpg" alt="Xiaofan Yu">
+            </div>
+            <div class="member-content">
+                <div class="member-name"><a href="members/xiaofan/index.html">Xiaofan Yu</a></div>
+                <div class="member-title">Assistant Professor, Dept. of EE</div>
+                <div class="member-education">
+                    Ph.D. University of California San Diego<br>
+                    B.S. Peking University
+                </div>
+                <div class="member-contact">
+                    Email: <a href="mailto:xiaofanyu@ucmerced.edu">xiaofanyu@ucmerced.edu</a> |
+                    Office: <a href="https://maps.app.goo.gl/NXGCJekaKhNbM44b9">SE2 #382</a>
+                </div>
+            </div>
+        </div>
+        
+        <!--<h3>PhD Researchers</h3>
+        <div class="members-grid-small">
+            <div class="member-card-small">
+                <div class="member-img">👤</div>
+                <div class="member-content">
+                    <div class="member-name">Sample PhD Student</div>
+                    <div class="member-title">Ph.D. Student, Dept. of EE</div>
+                    <div class="member-start-time">Started in Fall 2025</div>
+                    <div class="member-education">
+                        M.S. University of California, Merced<br>
+                        B.S. Sample University
+                    </div>
+                    <div class="member-contact">
+                        Email: sample@ucmerced.edu
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h3>Master's Researchers</h3>
+        <div class="members-grid-small">
+            <div class="member-card-small">
+                <div class="member-img">👤</div>
+                <div class="member-content">
+                    <div class="member-name">Sample MS Student</div>
+                    <div class="member-title">M.S. Student, Dept. of CSE</div>
+                    <div class="member-start-time">Started in Fall 2025</div>
+                    <div class="member-education">
+                        B.S. Sample University
+                    </div>
+                    <div class="member-contact">
+                        Email: sample@ucmerced.edu
+                    </div>
+                </div>
+            </div>
+        </div>-->
+
+        <h3>Undergraduate Researchers</h3>
+            <div class="members-grid-small">
+            <div class="member-card-small">
+                <div class="member-img">
+                <img src="members/sebastian/image.png" alt="Jesus (Sebastian) Reyes">
+            </div>
+            <div class="member-content">
+                <div class="member-name">Jesus (Sebastian) Reyes</div>
+                <div class="member-title">Undergrad Student, Dept. of EE</div>
+                <div class="member-start-time">Started in Fall 2025</div>
+                    <div class="member-contact">
+                        Email: jreyes149@ucmerced.edu
+                    </div>
+                </div>
+            </div>
+            <div class="member-card-small">
+                <div class="member-img">
+                <img src="members/emmanuel/Headshot_Summer_2025.png" alt="Emmanuel Velasco">
+            </div>
+            <div class="member-content">
+                <div class="member-name">Emmanuel Velasco</div>
+                <div class="member-title">Undergrad Student, Dept. of EE</div>
+                <div class="member-start-time">Started in Fall 2025</div>
+                    <div class="member-contact">
+                        Email: evelasco11@ucmerced.edu
+                    </div>
+                </div>
+            </div>
+            <div class="member-card-small">
+                <div class="member-img">
+                <img src="members/isaiah/IMG_4164.jpg" alt="Isaiah Ramos">
+            </div>
+                <div class="member-content">
+                    <div class="member-name">Isaiah Ramos</div>
+                    <div class="member-title">Undergrad Student, Dept. of EE</div>
+                    <div class="member-start-time">Started in Fall 2025</div>
+                    <div class="member-contact">
+                        Email: iramos21@ucmerced.edu
+                    </div>
+                </div>
+            </div>
+            <div class="member-card-small">
+                <div class="member-img">
+                <img src="members/baron/IMG_4295.jpg" alt="Baron Liu">
+            </div>
+                <div class="member-content">
+                    <div class="member-name">Baron Liu</div>
+                    <div class="member-title">Undergrad Student, Dept. of EE</div>
+                    <div class="member-start-time">Started in Fall 2025</div>
+                    <div class="member-contact">
+                        Email: baronliu@ucmerced.edu
+                    </div>
+                </div>
+            </div>
+            <div class="member-card-small">
+                <div class="member-img">
+                <img src="members/ziyuan/IMG_20251102_104705.jpg" alt="Ziyuan Zeng">
+            </div>
+                <div class="member-content">
+                    <div class="member-name">Ziyuan Zeng</div>
+                    <div class="member-title">Undergrad Student, Dept. of EE</div>
+                    <div class="member-start-time">Started in Fall 2025</div>
+                    <div class="member-contact">
+                        Email: zzeng33@ucmerced.edu
+                    </div>
+                </div>
+            </div>
+            <div class="member-card-small">
+                <div class="member-img">
+                <img src="members/aron/IMG_7528.jpg" alt="Aron Camacho">
+            </div>
+                <div class="member-content">
+                    <div class="member-name">Aron Camacho</div>
+                    <div class="member-title">Undergrad Student, Dept. of CSE</div>
+                    <div class="member-start-time">Started in Fall 2025</div>
+                    <div class="member-contact">
+                        Email: acamacho37@ucmerced.edu
+                    </div>
+                </div>
+            </div>
+            <div class="member-card-small">
+                <div class="member-img">
+                <img src="members/hongzhe/img/abb063b72856fa5f33861bc86b72079.jpg" alt="Hongzhe Xie">
+            </div>
+                <div class="member-content">
+                    <div class="member-name">Hongzhe Xie</div>
+                    <div class="member-title">Undergrad Student, Dept. of CSE</div>
+                    <div class="member-start-time">Started in Fall 2025</div>
+                    <div class="member-contact">
+                        Email: hongzhexie@ucmerced.edu
+                    </div>
+                    <div class="member-contact">
+                        Pages: <a href="https://macroxie04.github.io/MacroXie04/">Hongzhe Xie</a>
+                    </div>
+                </div>
+            </div>
+            <div class="member-card-small">
+                <div class="member-img">
+                    <img src="members/joshuacoquia/image.jpg" alt="Joshua Coquia">
+                </div>
+                <div class="member-content">
+                    <div class="member-name">Joshua Coquia</div>
+                    <div class="member-title">Undergrad Student, Dept. of CSE</div>
+                    <div class="member-start-time">Started in Fall 2025</div>
+                    <div class="member-contact">
+                        Email: joshuacoquia@ucmerced.edu
+                    </div>
+                </div>
+            </div>
+            <div class="member-card-small">
+                <div class="member-img">
+                    <img src="members/brandon/photo.jpg" alt="Brandon Sanchez">
+                </div>
+                <div class="member-content">
+                    <div class="member-name">Brandon Sanchez</div>
+                    <div class="member-title">Undergrad Student, Dept. of EE</div>
+                    <div class="member-start-time">Started in Fall 2025</div>
+                    <div class="member-contact">
+                        Email: bsanchez80@ucmerced.edu
+                    </div>
+                </div>
+            </div>
+            <div class="member-card-small">
+                <div class="member-img">
+                    <img src="members/anvi/Anvi.jpg" alt="Anvi Kudaraya">
+                </div>
+                <div class="member-content">
+                    <div class="member-name">Anvi Kudaraya</div>
+                    <div class="member-title">Undergrad Student, Dept. of CSE</div>
+                    <div class="member-start-time">Started in Spring 2026</div>
+                    <div class="member-contact">
+                        Email: akudaraya@ucmerced.edu
+                    </div>
+                </div>
+            </div>
+            <div class="member-card-small">
+                <div class="member-img">
+                    <img src="members/ben/IMG_5707_3.jpg" alt="Ben Perkins">
+                </div>
+                <div class="member-content">
+                    <div class="member-name">Ben Perkins</div>
+                    <div class="member-title">Undergrad Student, Dept. of CSE</div>
+                    <div class="member-start-time">Started in Spring 2026</div>
+                    <div class="member-contact">
+                        Email: bperkins@ucmerced.edu
+                    </div>
+                </div>
+            </div>
             <div class="member-card-small">
                 <div class="member-img">
                     <img src="members/vrishan/image.jpg" alt="Vrishan Inukollu">
@@ -257,8 +561,7 @@
 
     <script>
   
-        let headerImages = [];
-        let currentImageIndex = 0;
+
 
         // Load images list from JSON file
         async function loadHeaderImages() {
