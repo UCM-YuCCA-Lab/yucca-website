@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YuCCA Lab - Publications</title>
+    <link rel="icon" type="image/png" href="figures/yucca_small.png">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>YuCCA Lab</h1>
+            <p class="subtitle">Yu's Cognitive Computing and Automation Lab</p>
+            <p class="subtitle">University of California, Merced</p>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="publications.html" class="active">Publications</a></li>
+            <li><a href="members.html">Members</a></li>
+            <li><a href="join.html">Join Us</a></li>
+            <li><a href="miscellaneous.html">Miscellaneous</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <h2>Publications</h2>
+        <p>Our research has been published in leading conferences and journals on embedded AI, sensor systems and design automation.</p>
+        <p>(<sup>*</sup> Equal contribution)</p>
+        
+        <div id="publications-list">
+            <p class="placeholder" style="margin-bottom: 2rem;">Loading publications from pubs.bib...</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 YuCCA Lab - University of California, Merced</p>
+        <p style="margin-top: 0.5rem; font-size: 0.9rem;">Yu's Cognitive Computing and Automation Lab</p>
+    </footer>
+
+    <script>
+        // Clean LaTeX commands and convert to HTML
+        function cleanLatex(text) {
+            if (!text) return '';
+
+            // Handle nested braces in \textbf{...}
+            // Recursively process from innermost to outermost
+            let lastText;
+            do {
+                lastText = text;
+                text = text.replace(/\\textbf\{([^{}]*)\}/g, '<strong>$1</strong>');
+            } while (text !== lastText);
+
+            // Handle nested braces in \textsuperscript{...}
+            do {
+                lastText = text;
+                text = text.replace(/\\textsuperscript\{([^{}]*)\}/g, '<sup>$1</sup>');
+            } while (text !== lastText);
+
+            // Handle LaTeX umlauts: \" for any character (with or without braces)
+            text = text.replace(/\{?\\"\{?([a-zA-Z])\}?\}?/g, (match, char) => {
+                const umlautMap = {
+                    'a': 'ä', 'o': 'ö', 'u': 'ü', 'e': 'ë', 'i': 'ï', 'y': 'ÿ',
+                    'A': 'Ä', 'O': 'Ö', 'U': 'Ü', 'E': 'Ë', 'I': 'Ï', 'Y': 'Ÿ'
+                };
+                return umlautMap[char] || char;
+            });
+
+            // Handle other LaTeX commands
+            //text = text.replace(/\\textdagger\{\}/g, '†');
+            //text = text.replace(/\\textdagger/g, '†');
+            // Temp Fix: remove \textdagger
+            text = text.replace(/\\textdagger\{\}/g, '');
+            text = text.replace(/\\textdagger/g, '');
+            text = text.replace(/\\&/g, '&');
+            text = text.replace(/\\_/g, '_');
+            text = text.replace(/\\%/g, '%');
+            text = text.replace(/\\\$/g, '$');
+            text = text.replace(/\~\\/g, ' ');
+            text = text.replace(/~/g, ' ');
+
+            return text.trim();
+        }
+
+        // Simple BibTeX Parser
+        function parseBibTeX(bibtex) {
+            const entries = [];
+
+            // Split into individual entries
+            const entryStrings = bibtex.split(/@\w+\{/).slice(1);
+
+            for (let entryStr of entryStrings) {
+                const entry = {};
+
+                // Extract the citation key (first thing before comma)
+                const keyMatch = entryStr.match(/^([^,]+),/);
+                if (keyMatch) {
+                    entry.key = keyMatch[1].trim();
+                }
+
+                // Extract each field - need to handle nested braces
+                // Match field name, then find matching closing brace
+                const fieldRegex = /(\w+)\s*=\s*\{/g;
+                let match;
+
+                while ((match = fieldRegex.exec(entryStr)) !== null) {
+                    const fieldName = match[1].toLowerCase();
+                    const startPos = fieldRegex.lastIndex;
+
+                    // Find the matching closing brace by counting depth
+                    let depth = 1;
+                    let pos = startPos;
+
+                    while (pos < entryStr.length && depth > 0) {
+                        if (entryStr[pos] === '{') {
+                            depth++;
+                        } else if (entryStr[pos] === '}') {
+                            depth--;
+                        }
+                        pos++;
+                    }
+
+                    if (depth === 0) {
+                        const fieldValue = entryStr.substring(startPos, pos - 1);
+                        entry[fieldName] = cleanLatex(fieldValue);
+                    }
+                }
+
+                // Only add if we have at least a title
+                if (entry.title) {
+                    entries.push(entry);
+                }
+            }
+
+            return entries;
+        }
+
+        // Format author names from LaTeX to display format
+        function formatAuthors(authorString) {
+            if (!authorString) return 'Unknown authors';
+
+            // Split by 'and' to get individual authors
+            const authors = authorString.split(/\s+and\s+/);
+
+            // Process each author
+            const formattedAuthors = authors.map(author => {
+                author = author.trim();
+
+                // Check if the name is in "Last, First" format
+                if (author.includes(',')) {
+                    const parts = author.split(',').map(p => p.trim());
+                    if (parts.length === 2) {
+                        // Reverse to "First Last" format
+                        return `${parts[1]} ${parts[0]}`;
+                    }
+                }
+
+                // If not in "Last, First" format, return as is
+                return author;
+            });
+
+            // Join with commas
+            return formattedAuthors.join(', ');
+        }
+
+        // Extract conference abbreviation from venue (content in parentheses)
+        function extractConferenceTag(entry) {
+            const venue = entry.journal || entry.booktitle || '';
+            const year = entry.year || '';
+            
+            // Try to extract content within parentheses
+            const parenMatch = venue.match(/\(([^)]+)\)/);
+            
+            if (parenMatch) {
+                // Found content in parentheses, use it as the abbreviation
+                const abbr = parenMatch[1];
+                return `${abbr}'${year.slice(-2)}`;
+            }
+            
+            // If no parentheses found, return just the year
+            return year;
+        }
+
+        // Get color for conference tag
+        function getConferenceColor(tag) {
+            const colors = [
+                '#0091B3', // Sierra Sky Blue
+                '#DAA900', // California Poppy Gold
+                '#FFBF3C', // Golden Wheat
+                '#002856', // Lake Yosemite Blue
+                '#5B5B5B'  // Half Dome Slate Gray
+            ];
+            
+            // Use hash of tag to consistently assign colors
+            let hash = 0;
+            for (let i = 0; i < tag.length; i++) {
+                hash = tag.charCodeAt(i) + ((hash << 5) - hash);
+            }
+            return colors[Math.abs(hash) % colors.length];
+        }
+
+        // Render publications grouped by year
+        function renderPublications(entries) {
+            const container = document.getElementById('publications-list');
+
+            if (entries.length === 0) {
+                container.innerHTML = '<p class="placeholder">No publications found in pubs.bib file.</p>';
+                return;
+            }
+
+            // Group publications by year
+            const yearGroups = {};
+
+            entries.forEach(entry => {
+                const year = entry.year || 'Unknown';
+                if (!yearGroups[year]) {
+                    yearGroups[year] = [];
+                }
+                yearGroups[year].push(entry);
+            });
+
+            // Sort years in descending order (most recent first)
+            const sortedYears = Object.keys(yearGroups).sort((a, b) => {
+                if (a === 'Unknown') return 1;
+                if (b === 'Unknown') return -1;
+                return parseInt(b) - parseInt(a);
+            });
+
+            // Render HTML
+            let html = '';
+
+            sortedYears.forEach(year => {
+                const yearEntries = yearGroups[year];
+
+                html += `<h3>${year}</h3>`;
+
+                yearEntries.forEach(entry => {
+                    const title = entry.title || 'Untitled';
+                    const authors = entry.author ? formatAuthors(entry.author) : '';
+                    const venue = entry.journal || entry.booktitle || '';
+                    const url = entry.url || '#';
+                    const code = entry.code || '';
+                    const slides = entry.slides || '';
+                    const award = entry.award || '';
+
+                    const tag = extractConferenceTag(entry);
+                    const color = getConferenceColor(tag);
+                    const textColor = (color === '#FFBF3C') ? '#002856' : '#ffffff';
+
+                    // Build venue line (no need to include year since it's in the section heading)
+                    let venueText = venue || '';
+
+                    html += `
+                        <div class="pub-card">
+                            <div class="pub-tag" style="background: ${color}; color: ${textColor};">${tag}</div>
+                            <div class="pub-content">
+                                <h4 onclick="window.open('${url}', '_blank')">${title}</h4>
+                                ${authors ? `<div class="pub-authors">${authors}</div>` : ''}
+                                ${venueText ? `<div class="pub-venue">${venueText}</div>` : ''}
+                                ${code || slides || award ? `
+                                    <div class="pub-links-line">
+                                        ${code ? `<a href="${code}" target="_blank">Code</a>` : ''}
+                                        ${slides ? `<a href="${slides}" target="_blank">Slides</a>` : ''}
+                                        ${award ? `<span class="pub-award" style="color: red;">${award}</span>` : ''}
+                                    </div>
+                                ` : ''}
+                            </div>
+                        </div>
+                    `;
+                });
+            });
+
+            if (html === '') {
+                html = '<p class="placeholder">No publications found in pubs.bib file.</p>';
+            }
+
+            container.innerHTML = html;
+        }
+
+        // Load publications from pubs.bib
+        async function loadPublications() {
+            try {
+                const response = await fetch('pubs.bib');
+                if (!response.ok) {
+                    throw new Error('Could not load pubs.bib');
+                }
+                const bibtex = await response.text();
+                const entries = parseBibTeX(bibtex);
+                renderPublications(entries);
+            } catch (error) {
+                console.error('Error loading publications:', error);
+                document.getElementById('publications-list').innerHTML = 
+                    '<p class="placeholder">Could not load publications. Please ensure pubs.bib is in the same directory as this HTML file.</p>';
+            }
+        }
+
+        // Load publications when page loads
+        window.addEventListener('load', loadPublications);
+
+        // Rotate header background images
+        let headerImages = [];
+        let currentImageIndex = 0;
+
+        // Load images list from JSON file
+        async function loadHeaderImages() {
+            try {
+                const response = await fetch('figures/images.json');
+                if (!response.ok) {
+                    throw new Error('Could not load images.json');
+                }
+                const imageList = await response.json();
+                // Prepend the figures folder path to each image
+                headerImages = imageList.map(img => `figures/${img}`);
+
+                // Initialize background rotation
+                if (headerImages.length > 0) {
+                    initializeHeaderBackground();
+                }
+            } catch (error) {
+                console.error('Error loading header images:', error);
+            }
+        }
+
+        function rotateHeaderBackground() {
+            const header = document.querySelector('header');
+            if (header && headerImages.length > 0) {
+                currentImageIndex = (currentImageIndex + 1) % headerImages.length;
+                header.style.setProperty('--header-bg-image', `url('${headerImages[currentImageIndex]}')`);
+            }
+        }
+
+        function initializeHeaderBackground() {
+            const header = document.querySelector('header');
+            if (header && headerImages.length > 0) {
+                // Create a style element to add CSS variable support
+                const style = document.createElement('style');
+                style.textContent = `
+                    header::before {
+                        background-image: var(--header-bg-image, url('${headerImages[0]}'));
+                    }
+                `;
+                document.head.appendChild(style);
+                header.style.setProperty('--header-bg-image', `url('${headerImages[0]}')`);
+
+                // Start rotation if there are multiple images
+                if (headerImages.length > 1) {
+                    // Rotate background every 1 minute (60000 milliseconds)
+                    setInterval(rotateHeaderBackground, 60000);
+                }
+            }
+        }
+
+        // Load images when page loads
+        window.addEventListener('load', loadHeaderImages);
+    </script>
+</body>
+</html>
