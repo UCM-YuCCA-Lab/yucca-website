@@ -113,11 +113,11 @@ Once you've made your changes:
 
 1. Commit your changes to your forked repository
 2. Create a pull request to the main repository
-3. Assign the PI (**Orienfish**) as the reviewer
+3. Assign webmaster (**Totonori**) as the reviewer
 4. Wait for approval
 
 Once the pull request is approved, the PI will update the website on the server, and your profile will be live!
 
 ## Questions?
 
-If you have any questions about adding your profile, please contact the lab PI at [xiaofanyu@ucmerced.edu](mailto:xiaofanyu@ucmerced.edu).
+If you have any questions about adding your profile, please contact the webmaster at [bsanchez80@ucmerced.edu](mailto:bsanchez80@ucmerced.edu) or lab PI at [xiaofanyu@ucmerced.edu](mailto:xiaofanyu@ucmerced.edu).
